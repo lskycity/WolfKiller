@@ -18,6 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.SettingsActivity" android:label="@string/main_menu_setting"/>
+        <activity android:name=".app.commonui.AboutUsActivity" android:label="@string/about_us"/>
+        <activity android:name=".app.commonui.DisclaimerActivity" android:label="@string/disclaimer"/>
     </application>
 
 </manifest>
