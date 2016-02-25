@@ -1,4 +1,4 @@
-package com.dream.yzbb.wolfkiller.util;
+package com.dream.yzbb.wolfkiller.apputils;
 
 /**
  * Created by kevinbest on 16/2/25.

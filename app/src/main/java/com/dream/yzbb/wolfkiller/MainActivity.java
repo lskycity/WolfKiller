@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
 import com.dream.yzbb.wolfkiller.ui.SettingsActivity;
-import com.dream.yzbb.wolfkiller.util.XmlUtils;
+import com.dream.yzbb.wolfkiller.apputils.XmlUtils;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
