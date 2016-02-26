@@ -2,7 +2,9 @@ package com.dream.yzbb.wolfkiller.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.support.v4.content.SharedPreferencesCompat;
 
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -16,42 +18,42 @@ public class SharedPreUtils {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
-        editor.apply();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     public static void putFloat(Context context, String key, float value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putFloat(key, value);
-        editor.apply();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     public static void putInt(Context context, String key, int value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt(key, value);
-        editor.apply();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     public static void putLong(Context context, String key, long value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putLong(key, value);
-        editor.apply();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     public static void putBoolean(Context context, String key, boolean value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
-        editor.apply();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     public static void putStringSet(Context context, String key, Set<String> value) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCE_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putStringSet(key, value);
-        editor.apply();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
     }
 
     public static String getString(Context context, String key, String defValue) {
@@ -106,6 +108,48 @@ public class SharedPreUtils {
 
     public static boolean getBoolean(Context context, String key) {
         return getBoolean(context, key, false);
+    }
+
+    /**
+     * remove key
+     * @param context
+     * @param key
+     */
+    public static void remove(Context context, String key)
+    {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(key);
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+    }
+
+    /**
+     * clear all data
+     * @param context
+     */
+    public static void clear(Context context)
+    {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCE_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.clear();
+        SharedPreferencesCompat.EditorCompat.getInstance().apply(editor);
+    }
+
+
+    public static boolean contains(Context context, String key)
+    {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCE_NAME,
+                Context.MODE_PRIVATE);
+        return sp.contains(key);
+    }
+
+    public static Map<String, ?> getAll(Context context)
+    {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCE_NAME,
+                Context.MODE_PRIVATE);
+        return sp.getAll();
     }
 
 }
