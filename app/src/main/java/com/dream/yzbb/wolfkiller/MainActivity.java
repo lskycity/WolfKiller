@@ -8,8 +8,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import com.dream.yzbb.wolfkiller.util.XmlUtils;
 
 public class MainActivity extends AppCompatActivity {
+    private TextView mTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        mTextView = (TextView)findViewById(R.id.role_content);
     }
 
     @Override
@@ -41,9 +46,9 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
             return true;
         }
 

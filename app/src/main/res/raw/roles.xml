@@ -1,0 +1,21 @@
+<roles>
+    <role>
+        <id>1</id>
+        <name>狼人</name>
+        <desc>坏人</desc>
+        <intro>杀光平民</intro>
+        <min>1</min>
+        <max>4</max>
+    </role>
+    <role>
+        <id>2</id>
+        <name>预言家</name>
+        <intro>可以预言身份</intro>
+        <min>1</min>
+        <max>2</max>
+    </role>
+    <role>
+        <id>3</id>
+        <name>守卫</name>
+    </role>
+</roles>
