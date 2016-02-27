@@ -29,9 +29,9 @@ public class SDCardUtils {
         if (isSDCardEnable())
         {
             StatFs stat = new StatFs(getSDCardPath());
-            // 获取空闲的数据块的数量
+            // Get available data blocks
             long availableBlocks = (long) stat.getAvailableBlocks() - 4;
-            // 获取单个数据块的大小（byte）
+            // Get size of a single data block in bytes
             long freeBlocks = stat.getAvailableBlocks();
             return freeBlocks * availableBlocks;
         }
@@ -39,19 +39,20 @@ public class SDCardUtils {
     }
 
     /**
-     * 获取指定路径所在空间的剩余可用容量字节数,unit is byte
+     * Get available storage in bytes by filePath
      *
      * @param filePath
-     * @return 容量字节 SDCard可用空间，内部存储可用空间
+     * @return internal available storage in bytes
      */
     public static long getFreeBytes(String filePath)
     {
-        // 如果是sd卡的下的路径，则获取sd卡可用容量
+        // Get available capacity of sd card if it is a SD card path
         if (filePath.startsWith(getSDCardPath()))
         {
             filePath = getSDCardPath();
         } else
-        {// 如果是内部存储的路径，则获取内存存储的可用容量
+        {
+            //Get available capacity of internal storage
             filePath = Environment.getDataDirectory().getAbsolutePath();
         }
         StatFs stat = new StatFs(filePath);
@@ -60,7 +61,7 @@ public class SDCardUtils {
     }
 
     /**
-     * 获取系统存储路径
+     * Get system storage path
      *
      * @return
      */
