@@ -1,6 +1,7 @@
 package com.dream.yzbb.wolfkiller;
 
 import android.content.Intent;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
     private void openAboutActivity() {
-        startActivity(new Intent(this,AboutUsActivity.class));
+        startActivity(new Intent(this, AboutUsActivity.class));
     }
 
     private void openSettingsActivity() {

@@ -1,8 +1,10 @@
 package com.dream.yzbb.wolfkiller.apputils;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.dream.yzbb.wolfkiller.entity.Role;
+import com.dream.yzbb.wolfkiller.entity.RoleDistributionInfo;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -53,9 +55,31 @@ public class XmlUtils {
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             switch (qName) {
                 case "role":
-                    newRole = new Role();
+                    String className = attributes.getValue("class");
+                    if(TextUtils.isEmpty(className))
+                    {
+                        newRole = new Role();
+                    }
+                    else
+                    {
+                        newRole = createRoleFromClassName(className);
+                    }
                     break;
             }
+        }
+
+        private Role createRoleFromClassName(String className) {
+            try {
+                Class cls= Class.forName(Constants.ROLE_CLASS_PATH+"."+className);
+                return (Role)cls.newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            throw new RuntimeException("Role name is not correct: "+className);
         }
 
         @Override
@@ -82,6 +106,9 @@ public class XmlUtils {
                 case "max":
                     newRole.setMaxNumber(Integer.parseInt(content));
                     break;
+                case "order":
+                    newRole.setOrder(Integer.parseInt(content));
+                    break;
             }
         }
 
@@ -93,5 +120,24 @@ public class XmlUtils {
         public List<Role> getParsedRoles() {
             return parsedRoles;
         }
+    }
+
+    public static List<RoleDistributionInfo> parseRoleDistributionFromXml(InputStream inputStream) {
+//        SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+//        try {
+//            SAXParser saxParser = saxParserFactory.newSAXParser();
+//            RoleXmlHandler xmlHandler = new RoleXmlHandler();
+//            saxParser.parse(inputStream, xmlHandler);
+//            return xmlHandler.getParsedRoles();
+//        } catch (ParserConfigurationException e) {
+//            Log.e(Constants.LOG_TAG,
+//                    e.toString());
+//        } catch (SAXException e) {
+//            Log.e(Constants.LOG_TAG,
+//                    e.toString());
+//        } catch (IOException e) {
+//            Log.e(Constants.LOG_TAG, e.toString());
+//        }
+        return null;
     }
 }

@@ -1,9 +1,24 @@
 <roles>
+    <role class="Jupiter">
+        <id>0</id>
+        <name>丘比特</name>
+        <desc>好人</desc>
+        <intro>连上两个好人</intro>
+        <order>1</order>
+        <min>0</min>
+        <max>1</max>
+    </role>
     <role>
+        <id>3</id>
+        <name>守卫</name>
+        <order>2</order>
+    </role>
+    <role class="Wolf">
         <id>1</id>
         <name>狼人</name>
         <desc>坏人</desc>
         <intro>杀光平民</intro>
+        <order>3</order>
         <min>1</min>
         <max>4</max>
     </role>
@@ -11,11 +26,16 @@
         <id>2</id>
         <name>预言家</name>
         <intro>可以预言身份</intro>
+        <order>4</order>
         <min>1</min>
         <max>2</max>
     </role>
-    <role>
-        <id>3</id>
-        <name>守卫</name>
+    <role class="Witch">
+        <id>2</id>
+        <name>女巫</name>
+        <intro>救人或杀人</intro>
+        <order>5</order>
+        <min>1</min>
+        <max>1</max>
     </role>
 </roles>

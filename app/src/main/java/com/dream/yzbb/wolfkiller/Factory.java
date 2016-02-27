@@ -2,6 +2,8 @@ package com.dream.yzbb.wolfkiller;
 
 import android.content.Context;
 
+import com.dream.yzbb.wolfkiller.service.RoleManager;
+
 /**
  * Created by kevinbest on 16/2/27.
  */
@@ -19,4 +21,6 @@ public abstract class Factory {
     }
 
     public abstract Context getApplicationContext();
+
+    public abstract RoleManager getRoleManager();
 }

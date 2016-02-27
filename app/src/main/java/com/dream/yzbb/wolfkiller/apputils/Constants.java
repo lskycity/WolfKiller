@@ -5,4 +5,5 @@ package com.dream.yzbb.wolfkiller.apputils;
  */
 public class Constants {
     public static String LOG_TAG = "Wolf_Killer";
+    public static String ROLE_CLASS_PATH="com.dream.yzbb.wolfkiller.entity";
 }
