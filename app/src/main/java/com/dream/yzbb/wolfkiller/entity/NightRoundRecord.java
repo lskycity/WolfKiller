@@ -9,6 +9,12 @@ import java.util.List;
 public class NightRoundRecord {
     private int number;
 
+    private Player killedPerson;
+    private Player savedPerson;
+    private Player poisonedPerson;
+    private Player guardedPerson;
+    private Lovers lovers;
+
     public Player getGuardedPerson() {
         return guardedPerson;
     }
@@ -56,12 +62,6 @@ public class NightRoundRecord {
     public void setLovers(Lovers lovers) {
         this.lovers = lovers;
     }
-
-    private Player killedPerson;
-    private Player savedPerson;
-    private Player poisonedPerson;
-    private Player guardedPerson;
-    private Lovers lovers;
 
 
     // calcuate who is dead in this night round
