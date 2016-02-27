@@ -35,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mTextView = (TextView)findViewById(R.id.role_content);
+
+        //Get all players' role information
+        Factory.get().getGameManager().getAllPlayers();
+        //Then call NightRoundManager's method to do actions
     }
 
     @Override
