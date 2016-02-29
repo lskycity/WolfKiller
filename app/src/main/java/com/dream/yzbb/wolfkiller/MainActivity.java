@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-       FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-        mTextView = (TextView)findViewById(R.id.role_content);
+        mTextView = (TextView) findViewById(R.id.role_content);
 
         //Get all players' role information
         Factory.get().getGameManager().getAllPlayers();
@@ -56,22 +56,24 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_settings) {
-            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
+//            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
+            mTextView.setText(XmlUtils.parseRoleDistributionFromXml(getResources().openRawResource(R.raw.games)).toString());
             openSettingsActivity();
             return true;
-        } else if(id == R.id.menu_about) {
+        } else if (id == R.id.menu_about) {
             openAboutActivity();
             return true;
         }
 
         return false;
     }
+
     private void openAboutActivity() {
         startActivity(new Intent(this, AboutUsActivity.class));
     }
 
     private void openSettingsActivity() {
-        startActivity(new Intent(this,SettingsActivity.class));
+        startActivity(new Intent(this, SettingsActivity.class));
     }
 
 

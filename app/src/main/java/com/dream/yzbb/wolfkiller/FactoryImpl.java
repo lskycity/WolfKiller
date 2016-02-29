@@ -23,7 +23,7 @@ public class FactoryImpl extends Factory {
         setInstance(factory);
 
         factory.mApplicationContext = applicationContext;
-        factory.mRoleManager = new RoleManager();
+        factory.mRoleManager = RoleManager.getInstance();
         factory.mGameManager = new GameManager();
         return factory;
     }
