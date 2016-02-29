@@ -3,7 +3,7 @@ package com.dream.yzbb.wolfkiller.entity;
 /**
  * Created by kevinbest on 16/2/24.
  */
-public class Role {
+public class Role implements Comparable<Role> {
     private String name;
     private String description;
     private int roleID;
@@ -12,6 +12,18 @@ public class Role {
     private int minNumber;
     // Maximum number
     private int maxNumber;
+
+    // Order in the night round
+    private int order;
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
 
     public String getName() {
         return name;
@@ -91,12 +103,12 @@ public class Role {
     }
 
     public Role() {
-        name="";
-        description="";
-        introduction="";
-        minNumber=0;
-        maxNumber=0;
-        roleID=-1;
+        name = "";
+        description = "";
+        introduction = "";
+        minNumber = 0;
+        maxNumber = 0;
+        roleID = -1;
     }
 
     public Role(String name, int minNumber, int maxNumber, int roleID, String description) {
@@ -107,4 +119,13 @@ public class Role {
     public String toString() {
         return "Role information: roleID - " + roleID + ", name - " + name + ", description - " + description + ",\n introduction - " + introduction + ", min number - " + minNumber + ", max number - " + maxNumber;
     }
+
+    @Override
+    public int compareTo(Role another) {
+        if (another.order == 0 || this.order == 0) {
+            throw new IllegalArgumentException("order of roles to be sorted should greater than 0." + another + "," + this);
+        }
+        return this.order - another.order;
+    }
+
 }

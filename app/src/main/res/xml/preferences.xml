@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="@string/main_menu_setting">
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/app_info">
+        <PreferenceScreen
+            android:summary="@string/version"
+            android:title="@string/app_info" />
+        <PreferenceScreen android:title="@string/about_us">
+            <intent
+                android:targetClass="com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity"
+                android:targetPackage="com.dream.yzbb.wolfkiller" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/disclaimer">
+            <intent
+                android:targetClass="com.dream.yzbb.wolfkiller.app.commonui.DisclaimerActivity"
+                android:targetPackage="com.dream.yzbb.wolfkiller" />
+        </PreferenceScreen>
+        <PreferenceScreen android:title="@string/user_guide">
+            <!--<intent-->
+                <!--android:targetClass="zcom.dream.yzbb.wolfkiller.ui.UserGuideActivity"-->
+                <!--android:targetPackage="com.dream.yzbb.wolfkiller" />-->
+        </PreferenceScreen>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

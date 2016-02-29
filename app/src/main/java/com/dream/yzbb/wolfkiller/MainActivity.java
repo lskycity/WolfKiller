@@ -1,5 +1,7 @@
 package com.dream.yzbb.wolfkiller;
 
+import android.content.Intent;
+import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,7 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.dream.yzbb.wolfkiller.util.XmlUtils;
+import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
+import com.dream.yzbb.wolfkiller.ui.SettingsActivity;
+import com.dream.yzbb.wolfkiller.apputils.XmlUtils;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
@@ -31,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mTextView = (TextView)findViewById(R.id.role_content);
+
+        //Get all players' role information
+        Factory.get().getGameManager().getAllPlayers();
+        //Then call NightRoundManager's method to do actions
     }
 
     @Override
@@ -47,11 +55,24 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.menu_settings) {
             mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
+            openSettingsActivity();
+            return true;
+        } else if(id == R.id.menu_about) {
+            openAboutActivity();
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
+    private void openAboutActivity() {
+        startActivity(new Intent(this, AboutUsActivity.class));
+    }
+
+    private void openSettingsActivity() {
+        startActivity(new Intent(this,SettingsActivity.class));
+    }
+
+
 }
