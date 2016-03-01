@@ -1,5 +1,7 @@
 package com.dream.yzbb.wolfkiller.entity;
 
+import android.os.Bundle;
+
 /**
  * Created by kevinbest on 16/2/27.
  */
@@ -7,7 +9,7 @@ public class Witch extends NightRole {
     private int actionIndex = 0;
 
     @Override
-    public void doAction(NightRoundRecord nightRoundRecord, Player... targetPlayers) {
+    public Bundle doAction(NightRoundRecord nightRoundRecord, Player... targetPlayers) {
         switch (actionIndex) {
             case 0:
                 //save people
@@ -24,6 +26,11 @@ public class Witch extends NightRole {
                 actionIndex = 0;
                 break;
         }
+        return null;
+    }
+
+    public int getActionIndex() {
+        return actionIndex;
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.dream.yzbb.wolfkiller.entity;
 
+import android.os.Bundle;
+
 /**
  * Created by kevinbest on 16/2/27.
  */
@@ -30,6 +32,6 @@ public abstract class NightRole extends Role{
         return "No";
     }
 
-    public abstract void doAction(NightRoundRecord nightRoundRecord, Player... targetPlayers);
+    public abstract Bundle doAction(NightRoundRecord nightRoundRecord, Player... targetPlayers);
 }
 
