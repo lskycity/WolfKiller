@@ -8,23 +8,23 @@
         <min>0</min>
         <max>1</max>
     </role>
-    <role class="Guard">
-        <id>1</id>
-        <name>守卫</name>
-        <desc>晚上可以保护一个玩家不被狼人杀害</desc>
-        <intro>村庄的守护神</intro>
-        <order>2</order>
-        <min>0</min>
-        <max>1</max>
-    </role>
     <role class="WereWolf">
-        <id>2</id>
+        <id>1</id>
         <name>狼人</name>
         <desc>坏人</desc>
         <intro>杀光平民</intro>
         <order>3</order>
         <min>1</min>
         <max>4</max>
+    </role>
+    <role class="Guard">
+        <id>2</id>
+        <name>守卫</name>
+        <desc>晚上可以保护一个玩家不被狼人杀害</desc>
+        <intro>村庄的守护神</intro>
+        <order>2</order>
+        <min>0</min>
+        <max>1</max>
     </role>
     <role class="Predictor">
         <id>3</id>
