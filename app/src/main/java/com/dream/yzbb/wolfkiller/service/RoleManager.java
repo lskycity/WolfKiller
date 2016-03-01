@@ -1,6 +1,7 @@
 package com.dream.yzbb.wolfkiller.service;
 
 import android.content.Context;
+import android.util.Xml;
 
 import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.R;
@@ -17,19 +18,25 @@ import java.util.Objects;
 public class RoleManager {
     private static RoleManager instance;
     private static List<Role> roles;
+    private static List<RoleDistributionInfo> roleDistributionInfo;
     private static final Object mLock = new Object();
 
     public static RoleManager getInstance() {
         synchronized (mLock) {
             if (instance == null) {
                 instance = new RoleManager();
+                init();
             }
         }
         return instance;
     }
 
-    private RoleManager() {
+    private static void init() {
         roles = XmlUtils.parseRolesFromXml(Factory.get().getApplicationContext().getResources().openRawResource(R.raw.roles));
+        roleDistributionInfo = XmlUtils.parseRoleDistributionFromXml(Factory.get().getApplicationContext().getResources().openRawResource(R.raw.games));
+    }
+
+    private RoleManager() {
     }
 
     public List<Role> getRoles() {
@@ -37,6 +44,18 @@ public class RoleManager {
     }
 
     public static RoleDistributionInfo getRoleDistributionInfo(int count) {
+        if (instance == null) {
+            throw new RuntimeException("Should initiate RoleManager first to init roles!!!");
+        }
+        return getRoleDistributionInfoByCount(count);
+    }
+
+    private static RoleDistributionInfo getRoleDistributionInfoByCount(int count) {
+        for (int i = 0; i < roleDistributionInfo.size(); i++) {
+            if (roleDistributionInfo.get(i).getPlayerCount() == count) {
+                return roleDistributionInfo.get(i);
+            }
+        }
         return null;
     }
 

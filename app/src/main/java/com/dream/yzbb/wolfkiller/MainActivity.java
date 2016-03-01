@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
 import com.dream.yzbb.wolfkiller.ui.SettingsActivity;
 import com.dream.yzbb.wolfkiller.apputils.XmlUtils;
+import com.dream.yzbb.wolfkiller.ui.SetupNewGameActivity;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mTextView = (TextView) findViewById(R.id.role_content);
 
         //Get all players' role information
-        Factory.get().getGameManager().getAllPlayers();
+//        Factory.get().getGameManager().getAllPlayers();
         //Then call NightRoundManager's method to do actions
     }
 
@@ -56,9 +57,9 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_settings) {
-            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
+//            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
 //            mTextView.setText(XmlUtils.parseRoleDistributionFromXml(getResources().openRawResource(R.raw.games)).toString());
-            openSettingsActivity();
+            openSetupNewGameActivity();
             return true;
         } else if (id == R.id.menu_about) {
             openAboutActivity();
@@ -74,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void openSettingsActivity() {
         startActivity(new Intent(this, SettingsActivity.class));
+    }
+
+    private void openSetupNewGameActivity() {
+        startActivity(new Intent(this, SetupNewGameActivity.class));
     }
 
 
