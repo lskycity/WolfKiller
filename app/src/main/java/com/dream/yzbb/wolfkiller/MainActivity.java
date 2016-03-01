@@ -56,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_settings) {
-//            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
-            mTextView.setText(XmlUtils.parseRoleDistributionFromXml(getResources().openRawResource(R.raw.games)).toString());
+            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
+//            mTextView.setText(XmlUtils.parseRoleDistributionFromXml(getResources().openRawResource(R.raw.games)).toString());
             openSettingsActivity();
             return true;
         } else if (id == R.id.menu_about) {

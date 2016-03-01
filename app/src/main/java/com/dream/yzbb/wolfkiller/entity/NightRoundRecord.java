@@ -13,6 +13,17 @@ public class NightRoundRecord {
     private Player savedPerson;
     private Player poisonedPerson;
     private Player guardedPerson;
+    private Player inspectedPerson;
+
+    public Player getInspectedPerson() {
+        return inspectedPerson;
+    }
+
+    public void setInspectedPerson(Player inspectedPerson) {
+
+        this.inspectedPerson = inspectedPerson;
+    }
+
     private Lovers lovers;
 
     public Player getGuardedPerson() {
