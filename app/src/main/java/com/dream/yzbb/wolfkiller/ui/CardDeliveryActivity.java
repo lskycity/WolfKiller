@@ -16,9 +16,11 @@ public class CardDeliveryActivity extends AppCompatActivity {
         //Get players
         Factory.get().getGameManager().getPlayerCount();
         //Get specific player's information
-        Player nextPlayer = Factory.get().getGameManager().getNextPlayer();
-        nextPlayer.getRole();
-        nextPlayer.setName("Xianpeng");
+        for(int i = 0;i < Factory.get().getGameManager().getPlayerCount();i++)
+        {
+            Factory.get().getGameManager().setNextPlayerInfo("Xianpeng");
+        }
+
 
         //start game after iteration of players' info
         Factory.get().getGameManager().startGame();
