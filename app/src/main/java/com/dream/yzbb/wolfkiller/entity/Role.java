@@ -112,7 +112,7 @@ public class Role implements Comparable<Role> {
     }
 
     public Role(String name, int minNumber, int maxNumber, int roleID, String description) {
-        this(name, description, roleID, "", 1, 1);
+        this(name, description, roleID, "", minNumber, maxNumber);
     }
 
     @Override

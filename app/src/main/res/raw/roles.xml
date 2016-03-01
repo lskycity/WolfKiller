@@ -8,13 +8,17 @@
         <min>0</min>
         <max>1</max>
     </role>
-    <role>
-        <id>3</id>
-        <name>守卫</name>
-        <order>2</order>
-    </role>
-    <role class="Wolf">
+    <role class="Guard">
         <id>1</id>
+        <name>守卫</name>
+        <desc>晚上可以保护一个玩家不被狼人杀害</desc>
+        <intro>村庄的守护神</intro>
+        <order>2</order>
+        <min>0</min>
+        <max>1</max>
+    </role>
+    <role class="WereWolf">
+        <id>2</id>
         <name>狼人</name>
         <desc>坏人</desc>
         <intro>杀光平民</intro>
@@ -22,20 +26,30 @@
         <min>1</min>
         <max>4</max>
     </role>
-    <role>
-        <id>2</id>
+    <role class="Predictor">
+        <id>3</id>
         <name>预言家</name>
+        <desc>每个晚上可以查看一个人是否为好人</desc>
         <intro>可以预言身份</intro>
         <order>4</order>
         <min>1</min>
         <max>2</max>
     </role>
     <role class="Witch">
-        <id>2</id>
+        <id>4</id>
         <name>女巫</name>
+        <desc>有一瓶好药和毒药</desc>
         <intro>救人或杀人</intro>
         <order>5</order>
-        <min>1</min>
+        <min>0</min>
         <max>1</max>
+    </role>
+    <role class="Civilian">
+        <id>5</id>
+        <name>平民</name>
+        <desc>无辜的村民</desc>
+        <intro>毫无技能</intro>
+        <min>1</min>
+        <max>10</max>
     </role>
 </roles>
