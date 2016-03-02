@@ -28,15 +28,9 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         mTextView = (TextView) findViewById(R.id.role_content);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         //Get all players' role information
 //        Factory.get().getGameManager().getAllPlayers();
@@ -63,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.menu_about) {
             openAboutActivity();
             return true;
+        } else if (id == android.R.id.home) {
+            finish();
         }
 
         return false;
