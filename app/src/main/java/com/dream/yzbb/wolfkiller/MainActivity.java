@@ -19,6 +19,7 @@ import com.dream.yzbb.wolfkiller.ui.SetupNewGameActivity;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
+    public static final String PLAYER_COUNT = "player_count";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.menu_settings) {
-//            mTextView.setText(XmlUtils.parseRolesFromXml(getResources().openRawResource(R.raw.roles)).toString());
-//            mTextView.setText(XmlUtils.parseRoleDistributionFromXml(getResources().openRawResource(R.raw.games)).toString());
-            openSetupNewGameActivity();
+            openSettingsActivity();
             return true;
         } else if (id == R.id.menu_about) {
             openAboutActivity();

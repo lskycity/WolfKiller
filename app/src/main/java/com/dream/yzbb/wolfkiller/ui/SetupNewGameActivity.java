@@ -1,20 +1,26 @@
 package com.dream.yzbb.wolfkiller.ui;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dream.yzbb.wolfkiller.Factory;
+import com.dream.yzbb.wolfkiller.MainActivity;
 import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.apputils.Constants;
 import com.dream.yzbb.wolfkiller.entity.RoleDistributionInfo;
 
-public class SetupNewGameActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener {
+public class SetupNewGameActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener, View.OnClickListener {
 
     private NumberPicker mNumberPicker;
     private TextView mDistributionInfo;
+    private Button mCardDeliveryBtn;
+    private Button mStartGameBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,10 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
         mNumberPicker.setOnValueChangedListener(this);
 
         mDistributionInfo = (TextView) findViewById(R.id.info);
+        mCardDeliveryBtn = (Button) findViewById(R.id.card_delivery_btn);
+        mCardDeliveryBtn.setOnClickListener(this);
+        mStartGameBtn = (Button) findViewById(R.id.start_game_btn);
+        mStartGameBtn.setOnClickListener(this);
     }
 
     private void updateRoleDistributionInfo(int playerCount) {
@@ -45,7 +55,29 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
 
     @Override
     public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-//        Toast.makeText(this, "Old value is " + oldVal + ", new value is " + newVal, Toast.LENGTH_LONG).show();
         updateRoleDistributionInfo(newVal);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.card_delivery_btn:
+                openCardDeliveryActivity();
+                break;
+            case R.id.start_game_btn:
+                openMainActivity();
+                break;
+        }
+    }
+
+    private void openCardDeliveryActivity() {
+        Intent intent = new Intent(this, CardDeliveryActivity.class);
+        startActivity(intent);
+    }
+
+    private void openMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(MainActivity.PLAYER_COUNT, mNumberPicker.getValue());
+        startActivity(intent);
     }
 }

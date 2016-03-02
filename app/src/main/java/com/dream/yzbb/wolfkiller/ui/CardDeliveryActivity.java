@@ -14,12 +14,12 @@ public class CardDeliveryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_delievery);
         //Get players
-        Factory.get().getGameManager().getPlayerCount();
+//        Factory.get().getGameManager().getPlayerCount();
         //Get specific player's information
-        for(int i = 0;i < Factory.get().getGameManager().getPlayerCount();i++)
-        {
-            Factory.get().getGameManager().setNextPlayerInfo("Xianpeng");
-        }
+//        for(int i = 0;i < Factory.get().getGameManager().getPlayerCount();i++)
+//        {
+//            Factory.get().getGameManager().setNextPlayerInfo("Xianpeng");
+//        }
 
 
         //start game after iteration of players' info
