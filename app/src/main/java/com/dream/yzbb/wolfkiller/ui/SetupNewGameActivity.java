@@ -47,6 +47,7 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
         mCardDeliveryBtn.setOnClickListener(this);
         mStartGameBtn = (Button) findViewById(R.id.start_game_btn);
         mStartGameBtn.setOnClickListener(this);
+        mStartGameBtn.setVisibility(View.GONE);
     }
 
     private void updateRoleDistributionInfo(int playerCount) {

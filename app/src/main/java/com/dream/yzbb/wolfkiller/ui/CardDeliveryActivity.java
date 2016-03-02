@@ -31,7 +31,7 @@ public class CardDeliveryActivity extends AppCompatActivity implements View.OnCl
             tv.append("\n");
         }
 
-        findViewById(R.id.start_game).setOnClickListener(this);
+        findViewById(R.id.start_game_btn).setOnClickListener(this);
 
         //start game after iteration of players' info
 //        Factory.get().getGameManager().startGame();
@@ -40,7 +40,7 @@ public class CardDeliveryActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.start_game) {
+        if(v.getId() == R.id.start_game_btn) {
             Factory.get().getGameManager().startGame();
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
