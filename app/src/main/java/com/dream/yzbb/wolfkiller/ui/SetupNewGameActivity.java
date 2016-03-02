@@ -71,6 +71,8 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
     }
 
     private void openCardDeliveryActivity() {
+        int playerCount = mNumberPicker.getValue();
+        Factory.get().getGameManager().initGame(Factory.get().getRoleManager().getRoleDistributionInfo(playerCount));
         Intent intent = new Intent(this, CardDeliveryActivity.class);
         startActivity(intent);
     }

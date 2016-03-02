@@ -47,11 +47,10 @@ public class RoleDistributionInfo {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("Total player count: " + playerCount + "\n");
-        builder.append("Role size is "+distribution.size()+"\n");
-        for (Iterator<Map.Entry<Role, Integer>> it = distribution.entrySet().iterator(); it.hasNext();) {
-            Map.Entry<Role, Integer> entry = it.next();
-            builder.append("Role name: " + ((Role) entry.getKey()).getName() + ", Role count: " + entry.getValue() + "\n");
+        builder.append("Total player count: ").append(playerCount).append("\n");
+        builder.append("Role size is ").append(distribution.size()).append("\n");
+        for (Map.Entry<Role, Integer> entry : distribution.entrySet()) {
+            builder.append("Role name: ").append(entry.getKey().getName()).append(", Role count: ").append(entry.getValue()).append("\n");
         }
         return builder.toString();
     }

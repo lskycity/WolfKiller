@@ -17,21 +17,21 @@ import java.util.Objects;
  */
 public class RoleManager {
     private static RoleManager instance;
-    private static List<Role> roles;
-    private static List<RoleDistributionInfo> roleDistributionInfo;
+    private List<Role> roles;
+    private List<RoleDistributionInfo> roleDistributionInfo;
     private static final Object mLock = new Object();
 
     public static RoleManager getInstance() {
         synchronized (mLock) {
             if (instance == null) {
                 instance = new RoleManager();
-                init();
+                instance.init();
             }
         }
         return instance;
     }
 
-    private static void init() {
+    private void init() {
         roles = XmlUtils.parseRolesFromXml(Factory.get().getApplicationContext().getResources().openRawResource(R.raw.roles));
         roleDistributionInfo = XmlUtils.parseRoleDistributionFromXml(Factory.get().getApplicationContext().getResources().openRawResource(R.raw.games));
     }
@@ -43,14 +43,14 @@ public class RoleManager {
         return roles;
     }
 
-    public static RoleDistributionInfo getRoleDistributionInfo(int count) {
+    public RoleDistributionInfo getRoleDistributionInfo(int count) {
         if (instance == null) {
             throw new RuntimeException("Should initiate RoleManager first to init roles!!!");
         }
         return getRoleDistributionInfoByCount(count);
     }
 
-    private static RoleDistributionInfo getRoleDistributionInfoByCount(int count) {
+    private  RoleDistributionInfo getRoleDistributionInfoByCount(int count) {
         for (int i = 0; i < roleDistributionInfo.size(); i++) {
             if (roleDistributionInfo.get(i).getPlayerCount() == count) {
                 return roleDistributionInfo.get(i);
@@ -59,7 +59,7 @@ public class RoleManager {
         return null;
     }
 
-    public static Role getRoleByID(int id) {
+    public Role getRoleByID(int id) {
         if (instance == null) {
             throw new RuntimeException("Should initiate RoleManager first to init roles!!!");
         }
