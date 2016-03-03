@@ -5,9 +5,12 @@
 
     <string name="user_guide">常见问题</string>
     <string name="disclaimer">免责声明</string>
+    <string name="disagree">拒绝</string>
+    <string name="agree">同意</string>
+
     <string name="about_us">关于我们</string>
     <string name="app_info">应用信息</string>
-    <string name="version">版本号 1.2</string>
+    <string name="version">版本号 %1$s</string>
 
     <string name="disclaimer_content">APP免责声明\n\n
         1、一切移动客户端用户在下载并浏览我们APP软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本APP，或直接、间接使用本APP资料者，均被视为自愿接受本应用相关声明和用户服务协议的约束。\n\n

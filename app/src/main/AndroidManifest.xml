@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.CardDeliveryActivity"></activity>
+        <activity android:name=".ui.CardDeliveryActivity"/>
     </application>
 
 </manifest>

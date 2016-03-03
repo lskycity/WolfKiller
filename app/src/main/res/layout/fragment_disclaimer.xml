@@ -1,15 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#e5e5e5"
+    android:orientation="vertical"
     tools:context=".app.commonui.DisclaimerFragment">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="8dp"
+        android:layout_weight="1"
         app:cardElevation="2dp"
         app:cardCornerRadius="2dp"
         android:layout_marginBottom="4dp">
@@ -25,4 +27,28 @@
                 android:text="@string/disclaimer_content"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
-</FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/button_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        android:padding="4dp"
+        style="?attr/buttonBarStyle">
+        <Button
+            android:id="@+id/disagree"
+            style="?attr/buttonBarButtonStyle"
+            android:text="@string/disagree"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+        <Button
+            android:id="@+id/agree"
+            style="?attr/buttonBarButtonStyle"
+            android:text="@string/agree"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>
