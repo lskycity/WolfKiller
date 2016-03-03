@@ -4,4 +4,5 @@
     <string name="choose_player_count_tip">Please choose player count:</string>
     <string name="start_delivering_card">Delivery Card</string>
     <string name="start_game">Start Game</string>
+    <string name="next_event">next event</string>
 </resources>
