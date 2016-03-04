@@ -5,6 +5,7 @@
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/app_info">
         <PreferenceScreen
+            android:key="version"
             android:summary="@string/version"
             android:title="@string/app_info" />
         <PreferenceScreen android:title="@string/about_us">

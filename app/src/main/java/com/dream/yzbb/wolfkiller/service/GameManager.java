@@ -20,12 +20,11 @@ public class GameManager {
     private Lovers lovers;
     private GameState gameState;
     private Player captain;
-    private int playerPos;
+    private NightRoundManager nightRoundManager;
 
     public boolean initGame(RoleDistributionInfo distributionInfo)
     {
         //init players according to distribution info
-        playerPos = 0;
         players = new ArrayList<>();
         HashMap<Role,Integer> map = distributionInfo.getDistribution();
         Iterator iterator = map.entrySet().iterator();
@@ -42,33 +41,13 @@ public class GameManager {
         return false;
     }
 
-//    public boolean
-    //set next player name and other info
-    public void setNextPlayerInfo(String name)
-    {
-        if(playerPos >= 0 && playerPos < players.size())
-        {
-            playerPos++;
-            players.get(playerPos).setName(name);
-        }
-    }
-    // get next player to show or change information of the player in initial screen
-    public Player getNextPlayer()
-    {
-        if(playerPos >= 0 && playerPos < players.size()-1)
-        {
-           return players.get(++playerPos);
-        }
-        return null;
-    }
-
-    public int getPlayerCount () {
-        return players.size();
-    }
-
     public void startGame()
     {
+        nightRoundManager = new NightRoundManager(players);
+    }
 
+    public NightRoundManager getNightRoundManager() {
+        return nightRoundManager;
     }
 
     public List<Player> getAllPlayers()

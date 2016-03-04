@@ -39,6 +39,7 @@ public class NightRoundManager {
                 nightRoles.add((NightRole) role);
             }
         }
+        //TODO: Implement comparable interface
         Collections.sort(nightRoles);
     }
 
@@ -79,11 +80,16 @@ public class NightRoundManager {
     }
 
     public NightRoundRecord endNightRound() {
-        //return latest nigh round record
+        //return latest night round record
         currentRoleIndex = 0;
         if(nightRoles.get(0) instanceof Jupiter) {
             nightRoles.remove(0);
         }
+        return nightRecords.getLast();
+    }
+
+    public NightRoundRecord getLastNightRoundRecord()
+    {
         return nightRecords.getLast();
     }
 }

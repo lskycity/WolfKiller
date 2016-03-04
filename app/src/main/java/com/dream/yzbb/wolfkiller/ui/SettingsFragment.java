@@ -7,6 +7,7 @@ import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 
 import com.dream.yzbb.wolfkiller.R;
+import com.dream.yzbb.wolfkiller.utils.AppUtils;
 import com.dream.yzbb.wolfkiller.utils.SharedPreUtils;
 
 /**
@@ -25,6 +26,7 @@ public class SettingsFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         getPreferenceManager().setSharedPreferencesName(SharedPreUtils.SHARED_PREFERENCE_NAME);
+        getPreferenceScreen().findPreference("version").setSummary(getString(R.string.version, AppUtils.getVersionName(getActivity())));
     }
 
 

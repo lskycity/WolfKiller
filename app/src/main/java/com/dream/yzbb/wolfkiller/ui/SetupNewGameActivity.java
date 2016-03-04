@@ -20,7 +20,6 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
     private NumberPicker mNumberPicker;
     private TextView mDistributionInfo;
     private Button mCardDeliveryBtn;
-    private Button mStartGameBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +44,7 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
         mDistributionInfo = (TextView) findViewById(R.id.info);
         mCardDeliveryBtn = (Button) findViewById(R.id.card_delivery_btn);
         mCardDeliveryBtn.setOnClickListener(this);
-        mStartGameBtn = (Button) findViewById(R.id.start_game_btn);
-        mStartGameBtn.setOnClickListener(this);
-        mStartGameBtn.setVisibility(View.GONE);
+
     }
 
     private void updateRoleDistributionInfo(int playerCount) {
@@ -65,9 +62,7 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
             case R.id.card_delivery_btn:
                 openCardDeliveryActivity();
                 break;
-            case R.id.start_game_btn:
-                openMainActivity();
-                break;
+
         }
     }
 
@@ -78,9 +73,4 @@ public class SetupNewGameActivity extends AppCompatActivity implements NumberPic
         startActivity(intent);
     }
 
-    private void openMainActivity() {
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra(MainActivity.PLAYER_COUNT, mNumberPicker.getValue());
-        startActivity(intent);
-    }
 }
