@@ -35,6 +35,7 @@ public class DaytimeRoundManager {
     }
 
     private void initDaytimeEventHandlers() {
+        daytimeEventHandlers = new LinkedList<DaytimeHandler>();
         daytimeEventHandlers.add(new PublishNightResultHandler());
         daytimeEventHandlers.add(new DaytimeSpeechHandler());
     }
