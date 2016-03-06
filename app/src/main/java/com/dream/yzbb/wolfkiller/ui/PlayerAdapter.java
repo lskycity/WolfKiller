@@ -54,7 +54,7 @@ public class PlayerAdapter extends BaseAdapter {
         int count = mSelectPosition.size();
         Player[] players = new Player[count];
         for(int i=0; i<count; i++) {
-            players[i] = getItem(mSelectPosition.get(i));
+            players[i] = mPlayerList.get(mSelectPosition.get(i));
         }
         return players;
     }
@@ -78,7 +78,7 @@ public class PlayerAdapter extends BaseAdapter {
             convertView = mLayoutInflater.inflate(R.layout.item_main_grid_player, parent, false);
         }
         TextView tv = (TextView) convertView.findViewById(R.id.player_no);
-        tv.setText(String.valueOf(position)+'\n'+getItem(position).getRole().getName());
+        tv.setText(getItem(position).getPlayID()+","+getItem(position).getRole().getName());
         ImageView checked = (ImageView) convertView.findViewById(R.id.checked_image);
         ViewUtils.setVisible(checked, mSelectPosition.contains(Integer.valueOf(position)));
         return convertView;

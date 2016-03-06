@@ -17,7 +17,10 @@ import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
 import com.dream.yzbb.wolfkiller.entity.NightRole;
 import com.dream.yzbb.wolfkiller.entity.NightRoundRecord;
+import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.service.GameManager;
+
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private GridView mGridView;
@@ -92,8 +95,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             mPlayerAdapter.setSelectedCount(currentRole.getActionTargetNumber());
 
         } else if(v.getId() == R.id.positive){
-            if(mPlayerAdapter.getSelectPlayers().length == currentRole.getActionTargetNumber()) {
-                mGameManager.getNightRoundManager().doAction(currentRole, mPlayerAdapter.getSelectPlayers());
+            Player[] players = mPlayerAdapter.getSelectPlayers();
+            if(players.length == currentRole.getActionTargetNumber()) {
+                mDisplay.append("select " + Arrays.toString(players) + "\n");
+                mGameManager.getNightRoundManager().doAction(currentRole, players);
                 gotoNextRole();
             } else {
                 Toast.makeText(this, "need select player", Toast.LENGTH_LONG).show();
