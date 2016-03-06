@@ -4,13 +4,14 @@ package com.dream.yzbb.wolfkiller.entity;
  * Created by kevinbest on 16/2/24.
  */
 public class Player {
-    private int playID;
+    private final int playID;
     private Role role;
     private String name;
     private Status status;
 
-    public void setPlayID(int playID) {
-        this.playID = playID;
+    public Player(int id) {
+        playID = id;
+        status = Status.ALIVE;
     }
 
     public void setRole(Role role) {
@@ -43,4 +44,9 @@ public class Player {
     }
 
     public enum Status {ALIVE, DEAD}
+
+    @Override
+    public String toString() {
+        return String.valueOf(role.getRoleID());
+    }
 }

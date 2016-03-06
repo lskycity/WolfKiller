@@ -12,6 +12,20 @@ public class Lovers {
         this.lover2 = lover2;
     }
 
+    public boolean isLover(Player player) {
+        return player == lover1 || player == lover2;
+    }
+
+    public Player getSpouse(Player player) {
+        if(player == lover1) {
+            return lover2;
+        } else if(player == lover2) {
+            return lover1;
+        } else {
+            return null;
+        }
+    }
+
     @Override
     public String toString() {
         return "Lovers are "+lover1.getPlayID()+" and "+ lover2.getPlayID();
