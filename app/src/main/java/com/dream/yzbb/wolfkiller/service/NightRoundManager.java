@@ -45,7 +45,7 @@ public class NightRoundManager {
 
     public void startNightRound() {
         //Init roles appearing in the night round
-        NightRoundRecord record = new NightRoundRecord();
+        NightRoundRecord record = new NightRoundRecord(nightRecords.size());
         nightRecords.add(record);
     }
 

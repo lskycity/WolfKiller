@@ -26,7 +26,7 @@ public class RoleDistributionInfo {
         return distribution;
     }
 
-    private List<Role> getRandomRoleList() {
+    public List<Role> getRandomRoleList() {
         ArrayList<Role> list = new ArrayList<>(playerCount);
         for(Map.Entry<Role, Integer> entry : distribution.entrySet()) {
             addRoleToList(list, entry.getKey(), entry.getValue());
