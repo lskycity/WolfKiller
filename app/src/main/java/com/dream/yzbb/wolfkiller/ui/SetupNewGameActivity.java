@@ -7,13 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dream.yzbb.wolfkiller.Factory;
-import com.dream.yzbb.wolfkiller.MainActivity;
 import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.apputils.Constants;
-import com.dream.yzbb.wolfkiller.entity.RoleDistributionInfo;
 
 public class SetupNewGameActivity extends AppCompatActivity implements NumberPicker.OnValueChangeListener, View.OnClickListener {
 

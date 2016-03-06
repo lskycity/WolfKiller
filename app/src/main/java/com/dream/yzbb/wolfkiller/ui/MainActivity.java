@@ -1,4 +1,4 @@
-package com.dream.yzbb.wolfkiller;
+package com.dream.yzbb.wolfkiller.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,10 +9,11 @@ import android.view.MenuItem;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.dream.yzbb.wolfkiller.Factory;
+import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
 import com.dream.yzbb.wolfkiller.entity.NightRole;
 import com.dream.yzbb.wolfkiller.service.GameManager;
-import com.dream.yzbb.wolfkiller.ui.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private GridView mGridView;

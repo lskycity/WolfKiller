@@ -1,4 +1,4 @@
-package com.dream.yzbb.wolfkiller;
+package com.dream.yzbb.wolfkiller.ui;
 
 import android.app.Activity;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.entity.Player;
 
 import java.util.List;
