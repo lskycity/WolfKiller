@@ -1,14 +1,12 @@
 package com.dream.yzbb.wolfkiller.service;
 
 import com.dream.yzbb.wolfkiller.entity.DaytimeRoundRecord;
-import com.dream.yzbb.wolfkiller.entity.NightRoundRecord;
-import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.service.daytime_handler.DaytimeHandler;
 import com.dream.yzbb.wolfkiller.service.daytime_handler.DaytimeSpeechHandler;
 import com.dream.yzbb.wolfkiller.service.daytime_handler.PublishNightResultHandler;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Created by kevinbest on 16/2/27.
@@ -18,7 +16,7 @@ public class DaytimeRoundManager {
     private int currentActionIndex;
 
     private LinkedList<DaytimeRoundRecord> daytimeRoundRecords;
-    private LinkedList<DaytimeHandler> daytimeEventHandlers;
+    private ArrayList<DaytimeHandler> daytimeEventHandlers;
 
     public DaytimeRoundManager() {
         dayRoundCount = 0;
@@ -35,7 +33,7 @@ public class DaytimeRoundManager {
     }
 
     private void initDaytimeEventHandlers() {
-        daytimeEventHandlers = new LinkedList<DaytimeHandler>();
+        daytimeEventHandlers = new ArrayList<DaytimeHandler>();
         daytimeEventHandlers.add(new PublishNightResultHandler());
         daytimeEventHandlers.add(new DaytimeSpeechHandler());
     }
@@ -55,5 +53,9 @@ public class DaytimeRoundManager {
 
     public void endDaytimeRound() {
         currentActionIndex = 0;
+    }
+
+    public DaytimeRoundRecord latestDaytimeRoundRecord() {
+        return daytimeRoundRecords.getLast();
     }
 }

@@ -13,9 +13,8 @@ import java.util.List;
 public class PublishNightResultHandler extends DaytimeHandler {
     @Override
     public String handleRequest(DaytimeRoundRecord roundRecord) {
-        NightRoundRecord record = Factory.get().getGameManager().getNightRoundManager().getLastNightRoundRecord();
+        NightRoundRecord record = Factory.get().getGameManager().getNightRoundManager().latestNightRoundRecord();
         //should update game status
-        setGameOver(isGameAlreadyEnded());
         return getNightResult(record);
     }
 
@@ -26,7 +25,7 @@ public class PublishNightResultHandler extends DaytimeHandler {
             StringBuilder builder = new StringBuilder();
             builder.append("昨天晚上");
             for (int i = 0; i < deadPerson.size(); i++) {
-                builder.append(deadPerson.get(i).getName() + " ");
+                builder.append(deadPerson.get(i).getPlayID() + " ");
             }
             builder.append("死了");
             return builder.toString();
@@ -34,9 +33,13 @@ public class PublishNightResultHandler extends DaytimeHandler {
         return null;
     }
 
-    private boolean isGameAlreadyEnded()
-    {
-        //get game status
-        return false;
+    @Override
+    public boolean shouldConsiderCaptain() {
+        return true;
+    }
+
+    @Override
+    public boolean shouldConsiderGameOver() {
+        return true;
     }
 }

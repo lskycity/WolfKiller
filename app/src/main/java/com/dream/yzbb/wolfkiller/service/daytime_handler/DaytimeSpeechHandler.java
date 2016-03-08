@@ -7,6 +7,11 @@ import com.dream.yzbb.wolfkiller.entity.DaytimeRoundRecord;
  */
 public class DaytimeSpeechHandler extends DaytimeHandler {
     @Override
+    public String handleRequest(DaytimeRoundRecord roundRecord) {
+        return "请各位玩家依次进行发言";
+    }
+
+    @Override
     public String getActionDescription() {
         return "请各位玩家依次进行发言";
     }

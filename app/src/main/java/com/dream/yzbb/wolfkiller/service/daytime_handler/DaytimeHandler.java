@@ -7,38 +7,27 @@ import com.dream.yzbb.wolfkiller.entity.DaytimeRoundRecord;
  */
 public class DaytimeHandler {
 
-    protected boolean mGameOver;
-    protected boolean mChangeCapatain;
-    public String handleRequest(DaytimeRoundRecord roundRecord)
-    {
+    public String handleRequest(DaytimeRoundRecord roundRecord) {
         return null;
     }
 
     public DaytimeHandler() {
-        setGameOver(false);
-        setmChangeCapatain(false);
     }
 
     public String getActionDescription() {
         return null;
     }
 
-    public boolean isGameOver()
-    {
-        return mGameOver;
+    public boolean shouldConsiderGameOver() {
+        return false;
     }
 
-    protected void setGameOver(boolean gameOver)
-    {
-        mGameOver = gameOver;
+    public boolean shouldConsiderCaptain() {
+        return false;
     }
 
-    protected void setmChangeCapatain(boolean changeCapatain)
-    {
-        mChangeCapatain = changeCapatain;
-    }
-
-    public boolean shouldChangeCapatain() {
-        return mChangeCapatain;
+    @Override
+    public String toString() {
+        return "I am "+getClass().getSimpleName();
     }
 }
