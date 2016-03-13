@@ -3,11 +3,10 @@ package com.dream.yzbb.wolfkiller.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,24 +15,19 @@ import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
 import com.dream.yzbb.wolfkiller.entity.NightRole;
-import com.dream.yzbb.wolfkiller.entity.NightRoundRecord;
 import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.service.GameManager;
 import com.dream.yzbb.wolfkiller.utils.ViewUtils;
 
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,
+        StartDayOrNightFragment.OnStartClickListener, NightEventFragment.NightEventListener {
     private GridView mGridView;
     private TextView mDisplay;
 
     private GameManager mGameManager;
     private PlayerAdapter mPlayerAdapter;
-
-    private Button positive;
-    private Button negative;
-    private Button nightNow;
-    private Button daytimeNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,18 +35,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         mGridView = (GridView) findViewById(R.id.all_player);
         mDisplay = (TextView) findViewById(R.id.event_panel);
-        nightNow = (Button) findViewById(R.id.event_button);
-        positive = (Button) findViewById(R.id.positive);
-        negative = (Button) findViewById(R.id.negative);
-        daytimeNow = (Button) findViewById(R.id.start_daytime_button);
-        nightNow.setOnClickListener(this);
-        positive.setOnClickListener(this);
-        negative.setOnClickListener(this);
-        daytimeNow.setOnClickListener(this);
 
         mGameManager = Factory.get().getGameManager();
         mGridView.setAdapter(mPlayerAdapter = new PlayerAdapter(this, mGameManager.getAllPlayers()));
         mGridView.setOnItemClickListener(this);
+        mGameManager.endDayAndStartNight();
+        applyStartFragment(true);
 
     }
 
@@ -70,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             openSettingsActivity();
             return true;
         } else if (id == R.id.menu_about) {
-            ViewUtils.setVisible(mDisplay, mDisplay.getVisibility()!=View.VISIBLE);
+            ViewUtils.setVisible(mDisplay, mDisplay.getVisibility() != View.VISIBLE);
 //            openAboutActivity();
             return true;
         }
@@ -88,33 +76,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     NightRole currentRole;
 
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.event_button) {
-            mGameManager.getNightRoundManager().startNightRound();
-            nightNow.setVisibility(View.GONE);
-            positive.setVisibility(View.VISIBLE);
-            negative.setVisibility(View.VISIBLE);
-            currentRole = mGameManager.getNightRoundManager().nextRole();
-            mDisplay.append(currentRole.getName() + "\n");
-            mPlayerAdapter.setSelectedCount(currentRole.getActionTargetNumber());
-
-        } else if (v.getId() == R.id.positive) {
-            Player[] players = mPlayerAdapter.getSelectPlayers();
-            if (players.length == currentRole.getActionTargetNumber()) {
-                mDisplay.append("select " + Arrays.toString(players) + "\n");
-                mGameManager.getNightRoundManager().doAction(currentRole, players);
-                gotoNextRole();
-            } else {
-                Toast.makeText(this, "need select player", Toast.LENGTH_LONG).show();
-            }
-
-        } else if (v.getId() == R.id.negative) {
-            gotoNextRole();
-        } else if (v.getId() == R.id.start_daytime_button) {
-            goToDaytimeActivity();
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        if (v.getId() == R.id.event_button) {
+//            mGameManager.getNightRoundManager().startNightRound();
+//            nightNow.setVisibility(View.GONE);
+//            positive.setVisibility(View.VISIBLE);
+//            negative.setVisibility(View.VISIBLE);
+//            currentRole = mGameManager.getNightRoundManager().nextRole();
+//            mDisplay.append(currentRole.getName() + "\n");
+//            mPlayerAdapter.setSelectedCount(currentRole.getActionTargetNumber());
+//
+//        } else if (v.getId() == R.id.positive) {
+//            Player[] players = mPlayerAdapter.getSelectPlayers();
+//            if (players.length == currentRole.getActionTargetNumber()) {
+//                mDisplay.append("select " + Arrays.toString(players) + "\n");
+//                mGameManager.getNightRoundManager().doAction(currentRole, players);
+//                gotoNextRole();
+//            } else {
+//                Toast.makeText(this, "need select player", Toast.LENGTH_LONG).show();
+//            }
+//
+//        } else if (v.getId() == R.id.negative) {
+//            gotoNextRole();
+//        } else if (v.getId() == R.id.start_daytime_button) {
+//            goToDaytimeActivity();
+//        }
+//    }
 
     private void goToDaytimeActivity() {
         startActivity(new Intent(this, DaytimeActivity.class));
@@ -123,22 +111,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void gotoNextRole() {
         if (mGameManager.getNightRoundManager().hasNext()) {
             currentRole = mGameManager.getNightRoundManager().nextRole();
+            gotoRoleFragment();
             mDisplay.append(currentRole.getName() + "\n");
             mPlayerAdapter.setSelectedCount(currentRole.getActionTargetNumber());
         } else {
-            NightRoundRecord roundRecord = mGameManager.getNightRoundManager().endNightRound();
+            mGameManager.endNightAndStartDay();
             mPlayerAdapter.setSelectedCount(0);
+            applyStartFragment(false);
             mDisplay.append("-------------------\n");
-            mDisplay.append(roundRecord.toString() + "\n");
-            mDisplay.append("-------------------\n");
-            nightNow.setVisibility(View.VISIBLE);
-            positive.setVisibility(View.GONE);
-            negative.setVisibility(View.GONE);
         }
+    }
+
+    private void gotoRoleFragment() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, NightEventFragment.create(currentRole.getRoleID())).commitAllowingStateLoss();
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         mPlayerAdapter.setSelectedPosition(position);
+    }
+
+    private void applyStartFragment(boolean isNight) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, StartDayOrNightFragment.create(isNight)).commitAllowingStateLoss();
+    }
+
+    @Override
+    public void onStart(boolean isNight) {
+        if(isNight) {
+            gotoNextRole();
+        } else {
+            goToDaytimeActivity();
+        }
+    }
+
+    @Override
+    public void shouldChoosePlayer(int playNumber) {
+        mPlayerAdapter.setSelectedCount(playNumber);
+    }
+
+    @Override
+    public Player[] getPlayers() {
+        return mPlayerAdapter.getSelectPlayers();
+    }
+
+    @Override
+    public void actionFinished() {
+        gotoNextRole();
     }
 }

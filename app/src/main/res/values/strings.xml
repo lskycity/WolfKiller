@@ -4,6 +4,6 @@
     <string name="choose_player_count_tip">Please choose player count:</string>
     <string name="start_delivering_card">Delivery Card</string>
     <string name="start_game">Start Game</string>
-    <string name="start_night">It\'s night now!</string>
-    <string name="start_daytime">It\'s Daytime Now! </string>
+    <string name="start_night">天黑了</string>
+    <string name="start_daytime">天亮了</string>
 </resources>

@@ -23,36 +23,12 @@
 
 
         <LinearLayout
+            android:id="@+id/action_panel"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/start_daytime_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_daytime"/>
-
-            <Button
-                android:id="@+id/event_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/start_night" />
-
-            <Button
-                android:id="@+id/positive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/agree"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/negative"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/disagree"
-                android:visibility="gone" />
         </LinearLayout>
 
     </LinearLayout>

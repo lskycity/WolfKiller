@@ -50,7 +50,6 @@ public class GameManager {
     {
         nightRoundManager = new NightRoundManager(players);
         daytimeRoundManager = new DaytimeRoundManager();
-        nightRoundManager.startNightRound();
         isNight = true;
     }
 
