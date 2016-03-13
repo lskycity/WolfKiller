@@ -18,6 +18,7 @@ public class GameManager {
     private Player captain;
     private NightRoundManager nightRoundManager;
     private DaytimeRoundManager daytimeRoundManager;
+    private boolean isNight;
 
     public boolean initGame(RoleDistributionInfo distributionInfo)
     {
@@ -48,6 +49,22 @@ public class GameManager {
     {
         nightRoundManager = new NightRoundManager(players);
         daytimeRoundManager = new DaytimeRoundManager();
+        nightRoundManager.startNightRound();
+        isNight = true;
+    }
+
+    public NightRoundManager endDayAndStartNight() {
+        daytimeRoundManager.endDaytimeRound();
+        nightRoundManager.startNightRound();
+        isNight = true;
+        return nightRoundManager;
+    }
+
+    public DaytimeRoundManager endNightAndStartDay() {
+        nightRoundManager.endNightRound();
+        daytimeRoundManager.startDaytimeRound();
+        isNight = false;
+        return daytimeRoundManager;
     }
 
     public NightRoundManager getNightRoundManager() {

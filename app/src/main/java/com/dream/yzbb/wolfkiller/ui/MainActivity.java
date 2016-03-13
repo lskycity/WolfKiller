@@ -19,6 +19,7 @@ import com.dream.yzbb.wolfkiller.entity.NightRole;
 import com.dream.yzbb.wolfkiller.entity.NightRoundRecord;
 import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.service.GameManager;
+import com.dream.yzbb.wolfkiller.utils.ViewUtils;
 
 import java.util.Arrays;
 
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             openSettingsActivity();
             return true;
         } else if (id == R.id.menu_about) {
-            openAboutActivity();
+            ViewUtils.setVisible(mDisplay, mDisplay.getVisibility()!=View.VISIBLE);
+//            openAboutActivity();
             return true;
         }
 
