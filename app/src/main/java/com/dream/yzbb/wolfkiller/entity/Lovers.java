@@ -17,9 +17,9 @@ public class Lovers {
     }
 
     public Player getSpouse(Player player) {
-        if(player == lover1) {
+        if (player == lover1) {
             return lover2;
-        } else if(player == lover2) {
+        } else if (player == lover2) {
             return lover1;
         } else {
             return null;
@@ -28,6 +28,10 @@ public class Lovers {
 
     @Override
     public String toString() {
-        return "Lovers are "+lover1.getPlayID()+" and "+ lover2.getPlayID();
+        return "Lovers are " + lover1.getPlayID() + " and " + lover2.getPlayID();
+    }
+
+    public boolean isCivilianWolfLove() {
+        return lover1.getRole() != lover2.getRole();
     }
 }

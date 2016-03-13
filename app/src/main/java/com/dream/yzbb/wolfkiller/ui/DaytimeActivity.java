@@ -48,7 +48,7 @@ public class DaytimeActivity extends AppCompatActivity implements View.OnClickLi
                     DaytimeEvent event = dayManager.nextDaytimeEvent();
                     switch (event) {
                         case PUBLISH_DEATH:
-                            mEventInfo.append(getNightResult(nightManager.latestNightRoundRecord())+"\n");
+                            mEventInfo.append(getNightResult(nightManager.latestNightRoundRecord()) + "\n");
                             break;
                         case CAPTAIN_DEATH:
                             mEventInfo.append("警长已挂，请重新选警长\n");
@@ -70,9 +70,7 @@ public class DaytimeActivity extends AppCompatActivity implements View.OnClickLi
                             mEventInfo.append("恋人死亡\n");
                             break;
                     }
-                }
-                else
-                {
+                } else {
                     finish();
                 }
                 break;
@@ -115,7 +113,7 @@ public class DaytimeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private boolean isGameOver() {
-        return new Random().nextInt(100) > 50;
+        return Factory.get().getGameManager().isGameOver();
     }
 
 
