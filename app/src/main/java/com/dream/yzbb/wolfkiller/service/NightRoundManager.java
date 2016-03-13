@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.entity.Jupiter;
+import com.dream.yzbb.wolfkiller.entity.Lovers;
 import com.dream.yzbb.wolfkiller.entity.NightRole;
 import com.dream.yzbb.wolfkiller.entity.NightRoundRecord;
 import com.dream.yzbb.wolfkiller.entity.Player;
@@ -25,6 +26,7 @@ public class NightRoundManager {
     private int currentRoleIndex;
     private LinkedList<NightRoundRecord> nightRecords;
     private boolean saved, poisoned;
+    private Lovers lovers;
 
     public NightRoundManager(List<Player> players) {
         nightRoles = new ArrayList<>(players.size());
@@ -44,8 +46,9 @@ public class NightRoundManager {
         Collections.sort(nightRoles);
     }
 
-    public void startNightRound() {
+    public void startNightRound(Lovers lovers) {
         //Init roles appearing in the night round
+        this.lovers = lovers;
         NightRoundRecord record = new NightRoundRecord(nightRecords.size());
         nightRecords.add(record);
     }
@@ -94,6 +97,10 @@ public class NightRoundManager {
     public NightRoundRecord latestNightRoundRecord() {
         NightRoundRecord latestNightRecord = nightRecords.getLast();
         return latestNightRecord;
+    }
+
+    public List<Player> getDeadPlayers() {
+        return latestNightRoundRecord().deadPlayers(lovers);
     }
 
     //TODO: update players' status

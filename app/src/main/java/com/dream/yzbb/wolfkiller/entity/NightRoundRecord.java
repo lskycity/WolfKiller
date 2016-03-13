@@ -93,6 +93,9 @@ public class NightRoundRecord {
     }
 
     private void addSpouseIfNeed(Player deadPlayer,Lovers lovers, ArrayList<Player> players) {
+        if(lovers==null) {
+            return;
+        }
         Player player = lovers.getSpouse(deadPlayer);
         if(player!=null && !players.contains(player)) {
             players.add(player);

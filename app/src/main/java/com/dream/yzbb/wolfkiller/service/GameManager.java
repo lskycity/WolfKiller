@@ -64,7 +64,7 @@ public class GameManager {
 
     public NightRoundManager endDayAndStartNight() {
         daytimeRoundManager.endDaytimeRound();
-        nightRoundManager.startNightRound();
+        nightRoundManager.startNightRound(lovers);
         isNight = true;
         return nightRoundManager;
     }
