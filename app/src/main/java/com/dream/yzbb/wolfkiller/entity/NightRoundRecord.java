@@ -81,7 +81,7 @@ public class NightRoundRecord {
     public List<Player> deadPlayers(Lovers lovers)
     {
         ArrayList<Player> players = new ArrayList<>(3);
-        if(killedPerson != null && savedPerson!=null && guardedPerson!=killedPerson) {
+        if(killedPerson != null && savedPerson==null && guardedPerson!=killedPerson) {
             players.add(killedPerson);
             addSpouseIfNeed(killedPerson, lovers, players);
         }
