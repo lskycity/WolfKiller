@@ -1,6 +1,7 @@
 package com.dream.yzbb.wolfkiller.service;
 
 import com.dream.yzbb.wolfkiller.entity.DaytimeRoundRecord;
+import com.dream.yzbb.wolfkiller.entity.Lovers;
 import com.dream.yzbb.wolfkiller.service.daytime_handler.DaytimeHandler;
 import com.dream.yzbb.wolfkiller.service.daytime_handler.DaytimeSpeechHandler;
 import com.dream.yzbb.wolfkiller.service.daytime_handler.PublishNightResultHandler;
@@ -17,15 +18,17 @@ public class DaytimeRoundManager {
 
     private LinkedList<DaytimeRoundRecord> daytimeRoundRecords;
     private ArrayList<DaytimeHandler> daytimeEventHandlers;
+    private Lovers lovers;
 
     public DaytimeRoundManager() {
         dayRoundCount = 0;
         this.daytimeRoundRecords = new LinkedList<DaytimeRoundRecord>();
     }
 
-    public DaytimeRoundRecord startDaytimeRound() {
+    public DaytimeRoundRecord startDaytimeRound(Lovers lovers) {
         dayRoundCount++;
         currentActionIndex = 0;
+        this.lovers = lovers;
         DaytimeRoundRecord daytimeRoundRecord = new DaytimeRoundRecord(dayRoundCount);
         daytimeRoundRecords.add(daytimeRoundRecord);
         initDaytimeEventHandlers();

@@ -1,6 +1,7 @@
 package com.dream.yzbb.wolfkiller.service;
 
 import com.dream.yzbb.wolfkiller.entity.Lovers;
+import com.dream.yzbb.wolfkiller.entity.NightRoundRecord;
 import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.entity.Role;
 import com.dream.yzbb.wolfkiller.entity.RoleDistributionInfo;
@@ -61,8 +62,15 @@ public class GameManager {
     }
 
     public DaytimeRoundManager endNightAndStartDay() {
-        nightRoundManager.endNightRound();
-        daytimeRoundManager.startDaytimeRound();
+        NightRoundRecord record = nightRoundManager.endNightRound();
+        if(record.getLovers()!=null) {
+            lovers = record.getLovers();
+        }
+        List<Player> deadPlayers = record.deadPlayers(lovers);
+        for(Player p:deadPlayers) {
+            p.setStatus(Player.Status.DEAD);
+        }
+        daytimeRoundManager.startDaytimeRound(lovers);
         isNight = false;
         return daytimeRoundManager;
     }
