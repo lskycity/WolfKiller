@@ -4,6 +4,8 @@
 
     <string name="selected">选中</string>
 
+    <string name="skip">skip</string>
+
     <string name="user_guide">常见问题</string>
     <string name="disclaimer">免责声明</string>
     <string name="disagree">拒绝</string>

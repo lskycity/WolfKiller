@@ -15,7 +15,6 @@ public class Role implements Comparable<Role> {
 
     // Order in the night round
     private int order;
-
     public int getOrder() {
         return order;
     }
@@ -99,8 +98,7 @@ public class Role implements Comparable<Role> {
         this.roleID = roleID;
         this.introduction = introduction;
         this.minNumber = minNumber;
-        this.maxNumber = maxNumber;
-    }
+        this.maxNumber = maxNumber;}
 
     public Role() {
         name = "";
@@ -127,5 +125,4 @@ public class Role implements Comparable<Role> {
         }
         return this.order - another.order;
     }
-
 }

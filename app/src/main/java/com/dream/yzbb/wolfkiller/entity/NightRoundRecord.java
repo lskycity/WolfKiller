@@ -77,7 +77,7 @@ public class NightRoundRecord {
     }
 
 
-    // calcuate who is dead in this night round
+    // calculate who is dead in this night round
     public List<Player> deadPlayers(Lovers lovers)
     {
         ArrayList<Player> players = new ArrayList<>(3);
