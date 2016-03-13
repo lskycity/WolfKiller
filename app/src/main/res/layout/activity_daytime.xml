@@ -22,8 +22,7 @@
         android:layout_below="@id/next_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="SPACE OCCUPIED!" />
+        android:gravity="center"/>
 
 
 </RelativeLayout>

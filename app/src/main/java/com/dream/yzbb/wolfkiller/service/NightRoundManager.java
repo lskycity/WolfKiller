@@ -86,15 +86,15 @@ public class NightRoundManager {
         if (nightRoles.get(0) instanceof Jupiter) {
             nightRoles.remove(0);
         }
+
+        //update players' status
         return nightRecords.getLast();
     }
 
     public NightRoundRecord latestNightRoundRecord() {
-        try {
-            NightRoundRecord latestNightRecord = nightRecords.getLast();
-            return latestNightRecord;
-        } catch (NoSuchElementException ex) {
-            return null;
-        }
+        NightRoundRecord latestNightRecord = nightRecords.getLast();
+        return latestNightRecord;
     }
+
+    //TODO: update players' status
 }
