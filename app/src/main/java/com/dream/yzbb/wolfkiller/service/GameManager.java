@@ -21,7 +21,16 @@ public class GameManager {
     private DaytimeRoundManager daytimeRoundManager;
     private boolean isNight;
 
+    public Lovers getLovers() {
+        return lovers;
+    }
+
+    public Player getCaptain() {
+        return captain;
+    }
+
     public boolean initGame(RoleDistributionInfo distributionInfo)
+
     {
         //init players according to distribution info
         initPlayers(distributionInfo.getPlayerCount());

@@ -1,6 +1,6 @@
 package com.dream.yzbb.wolfkiller.entity;
 
-import com.dream.yzbb.wolfkiller.service.daytime_handler.DaytimeHandler;
+import com.dream.yzbb.wolfkiller.service.DaytimeRoundManager;
 
 import java.util.LinkedList;
 import java.util.List;

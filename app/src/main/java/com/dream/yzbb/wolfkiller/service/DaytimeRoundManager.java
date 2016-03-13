@@ -1,13 +1,13 @@
 package com.dream.yzbb.wolfkiller.service;
 
+import android.util.Log;
+
+import com.dream.yzbb.wolfkiller.apputils.Constants;
 import com.dream.yzbb.wolfkiller.entity.DaytimeRoundRecord;
 import com.dream.yzbb.wolfkiller.entity.Lovers;
 import com.dream.yzbb.wolfkiller.entity.Player;
-import com.dream.yzbb.wolfkiller.service.daytime_handler.DaytimeHandler;
-import com.dream.yzbb.wolfkiller.service.daytime_handler.DaytimeSpeechHandler;
-import com.dream.yzbb.wolfkiller.service.daytime_handler.PublishNightResultHandler;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 
 /**
@@ -16,11 +16,16 @@ import java.util.LinkedList;
 public class DaytimeRoundManager {
     private int dayRoundCount;
     private int currentActionIndex;
+    private static final DaytimeEvent[] DAYTIME_EVENTS_SEQUENCE = {DaytimeEvent.PUBLISH_DEATH, DaytimeEvent.GAME_STATUS, DaytimeEvent.CAPTAIN_DEATH, DaytimeEvent.SPEECH, DaytimeEvent.VOTE, DaytimeEvent.LOVER_DEATH, DaytimeEvent.CAPTAIN_DEATH, DaytimeEvent.GAME_STATUS};
 
     private LinkedList<DaytimeRoundRecord> daytimeRoundRecords;
-    private ArrayList<DaytimeHandler> daytimeEventHandlers;
     private Lovers lovers;
+    //updated captain information
     private Player captain;
+    private LinkedList<DaytimeEvent> daytimeEvents;
+
+    public enum DaytimeEvent {PUBLISH_DEATH, GAME_STATUS, CAPTAIN_DEATH, SPEECH, VOTE, LOVER_DEATH}
+
 
     public DaytimeRoundManager() {
         dayRoundCount = 0;
@@ -34,27 +39,49 @@ public class DaytimeRoundManager {
         this.captain = captain;
         DaytimeRoundRecord daytimeRoundRecord = new DaytimeRoundRecord(dayRoundCount);
         daytimeRoundRecords.add(daytimeRoundRecord);
-        initDaytimeEventHandlers();
+        initDaytimeEvents();
         return daytimeRoundRecord;
     }
 
-    private void initDaytimeEventHandlers() {
-        daytimeEventHandlers = new ArrayList<DaytimeHandler>();
-        daytimeEventHandlers.add(new PublishNightResultHandler());
-        daytimeEventHandlers.add(new DaytimeSpeechHandler());
+    private void initDaytimeEvents() {
+        daytimeEvents = new LinkedList<DaytimeEvent>(Arrays.asList(DAYTIME_EVENTS_SEQUENCE));
     }
 
-    public boolean hasNextAction() {
-        return currentActionIndex < daytimeEventHandlers.size();
+    public boolean hasNextEvent() {
+        return !daytimeEvents.isEmpty();
     }
 
-    /**
-     * Return next DaytimeHandler
-     *
-     * @return nextDaytimeHandler
-     */
-    public DaytimeHandler nextDaytimeHandler() {
-        return daytimeEventHandlers.get(currentActionIndex++);
+    public DaytimeEvent nextDaytimeEvent() {
+        DaytimeEvent event = daytimeEvents.removeFirst();
+        //remove event according to daytimeRecord status
+        if (event != DaytimeEvent.CAPTAIN_DEATH && event != DaytimeEvent.LOVER_DEATH) {
+            return event;
+        } else if (event == DaytimeEvent.LOVER_DEATH) {
+            if (isLoverDead()) {
+                Log.i(Constants.LOG_TAG, "[nextDaytimeEvent], lover is dead.");
+                return event;
+            } else {
+                Log.i(Constants.LOG_TAG, "[nextDaytimeEvent], lover is not dead.");
+                return nextDaytimeEvent();
+            }
+        } else {
+            //CAPTAIN_DEATH EVENT
+            if (isCaptainDead()) {
+                Log.i(Constants.LOG_TAG, "[nextDaytimeEvent], captain is dead.");
+                return event;
+            }
+            Log.i(Constants.LOG_TAG, "[nextDaytimeEvent], captain is not dead.");
+            return nextDaytimeEvent();
+        }
+    }
+
+    private boolean isLoverDead() {
+        DaytimeRoundRecord record = latestDaytimeRoundRecord();
+        return lovers.isLover(record.getVotedPerson());
+    }
+
+    private boolean isCaptainDead() {
+        return captain == null || captain.getStatus() == Player.Status.DEAD;
     }
 
     public void endDaytimeRound() {
