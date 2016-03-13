@@ -25,7 +25,6 @@ public class NightRoundManager {
     private List<NightRole> nightRoles;
     private int currentRoleIndex;
     private LinkedList<NightRoundRecord> nightRecords;
-    private boolean saved, poisoned;
     private Lovers lovers;
 
     public NightRoundManager(List<Player> players) {
@@ -63,24 +62,7 @@ public class NightRoundManager {
 
     public Bundle doAction(NightRole role, Player... players) {
         NightRoundRecord roundRecord = nightRecords.getLast();
-
-        if (role instanceof Witch) {
-            Witch witch = (Witch) role;
-            if (witch.getActionIndex() == 0 && saved || witch.getActionIndex() == 1 && poisoned) {
-                role.doAction(roundRecord);
-            } else {
-                role.doAction(roundRecord, players);
-                if (roundRecord.getSavedPerson() != null) {
-                    saved = true;
-                }
-                if (roundRecord.getPoisonedPerson() != null) {
-                    poisoned = true;
-                }
-            }
-            return null;
-        } else {
-            return role.doAction(roundRecord, players);
-        }
+        return role.doAction(roundRecord, players);
     }
 
     public NightRoundRecord endNightRound() {

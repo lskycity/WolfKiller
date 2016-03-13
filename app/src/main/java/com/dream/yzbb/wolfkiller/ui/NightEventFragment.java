@@ -20,7 +20,7 @@ import com.dream.yzbb.wolfkiller.entity.Player;
  * Created by liuzhaofeng on 2016/3/13.
  */
 public class NightEventFragment extends Fragment implements View.OnClickListener {
-    private static final String Key_role = "key_role";
+    protected static final String Key_role = "key_role";
 
     public interface NightEventListener {
         void shouldChoosePlayer(int playNumber);
@@ -39,9 +39,9 @@ public class NightEventFragment extends Fragment implements View.OnClickListener
     private TextView description;
     private Button positive;
     private Button negative;
-    private NightRole role;
+    protected NightRole role;
 
-    private NightEventListener listener;
+    protected NightEventListener listener;
 
     @Override
     public void onAttach(Activity activity) {

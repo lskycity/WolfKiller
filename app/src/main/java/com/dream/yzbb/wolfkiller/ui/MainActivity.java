@@ -16,6 +16,7 @@ import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
 import com.dream.yzbb.wolfkiller.entity.NightRole;
 import com.dream.yzbb.wolfkiller.entity.Player;
+import com.dream.yzbb.wolfkiller.entity.Witch;
 import com.dream.yzbb.wolfkiller.service.GameManager;
 import com.dream.yzbb.wolfkiller.utils.ViewUtils;
 
@@ -132,7 +133,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }
 
     private void gotoRoleFragment() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, NightEventFragment.create(currentRole.getRoleID())).commitAllowingStateLoss();
+        if(currentRole instanceof Witch) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, WitchEventFragment.create(currentRole.getRoleID())).commitAllowingStateLoss();
+        } else {
+            getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, NightEventFragment.create(currentRole.getRoleID())).commitAllowingStateLoss();
+        }
     }
 
     @Override
