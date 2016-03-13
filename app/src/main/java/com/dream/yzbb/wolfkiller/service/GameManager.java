@@ -105,7 +105,7 @@ public class GameManager {
             return true;
         } else if (isAllGoodPeople(alivePlayers)) {
             return true;
-        } else if (alivePlayers.size() == 2 && lovers.isCivilianWolfLove()) {
+        } else if (alivePlayers.size() == 2 && lovers.isLover(alivePlayers.get(0)) && lovers.isLover(alivePlayers.get(1))) {
             return true;
         }
         return false;

@@ -32,6 +32,10 @@ public class Lovers {
     }
 
     public boolean isCivilianWolfLove() {
-        return lover1.getRole() != lover2.getRole();
+        return isWereWolf(lover1) ^ isWereWolf(lover2);
+    }
+
+    private boolean isWereWolf(Player player) {
+        return player.getRole().getClass() == WereWolf.class;
     }
 }
