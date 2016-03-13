@@ -105,7 +105,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 //    }
 
     private void goToDaytimeActivity() {
-        startActivity(new Intent(this, DaytimeActivity.class));
+        startActivityForResult(new Intent(this, DaytimeActivity.class), 100);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 100) {
+            mGameManager.endDayAndStartNight();
+            applyStartFragment(true);
+        }
     }
 
     private void gotoNextRole() {

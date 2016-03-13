@@ -12,13 +12,11 @@
         android:id="@+id/positive"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/agree"
-        android:visibility="gone" />
+        android:text="@string/agree" />
 
     <Button
         android:id="@+id/negative"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/disagree"
-        android:visibility="gone" />
+        android:text="@string/disagree"/>
 </LinearLayout>
