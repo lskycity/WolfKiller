@@ -79,6 +79,7 @@ public class PlayerAdapter extends BaseAdapter {
         }
         TextView tv = (TextView) convertView.findViewById(R.id.player_no);
         tv.setText(getItem(position).getPlayID()+","+getItem(position).getRole().getName());
+        tv.append(" "+getItem(position).getStatus());
         ImageView checked = (ImageView) convertView.findViewById(R.id.checked_image);
         ViewUtils.setVisible(checked, mSelectPosition.contains(Integer.valueOf(position)));
         return convertView;

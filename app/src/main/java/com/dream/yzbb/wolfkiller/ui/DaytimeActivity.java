@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.R;
+import com.dream.yzbb.wolfkiller.apputils.Constants;
 import com.dream.yzbb.wolfkiller.entity.NightRoundRecord;
 import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.service.DaytimeRoundManager;
@@ -36,6 +39,7 @@ public class DaytimeActivity extends AppCompatActivity implements View.OnClickLi
         mNextAction.setOnClickListener(this);
         GameManager gameManager = Factory.get().getGameManager();
         gameManager.endNightAndStartDay();
+        Log.d(Constants.LOG_TAG, getDeadPersons());
     }
 
     @Override
@@ -55,6 +59,7 @@ public class DaytimeActivity extends AppCompatActivity implements View.OnClickLi
                             break;
                         case GAME_STATUS:
                             if (isGameOver()) {
+                                Toast.makeText(this, "Game is Over!!!", Toast.LENGTH_LONG).show();
                                 finish();
                             } else {
                                 mEventInfo.append("计算游戏是否已经结束\n");
@@ -114,6 +119,17 @@ public class DaytimeActivity extends AppCompatActivity implements View.OnClickLi
 
     private boolean isGameOver() {
         return Factory.get().getGameManager().isGameOver();
+    }
+
+    private String getDeadPersons() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("已经死了这些人: ");
+        for (Player p : Factory.get().getGameManager().getAllPlayers()) {
+            if (p.getStatus() == Player.Status.DEAD) {
+                builder.append(p.getPlayID() + "号, ");
+            }
+        }
+        return builder.toString();
     }
 
 
