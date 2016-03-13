@@ -70,7 +70,7 @@ public class GameManager {
         for(Player p:deadPlayers) {
             p.setStatus(Player.Status.DEAD);
         }
-        daytimeRoundManager.startDaytimeRound(lovers);
+        daytimeRoundManager.startDaytimeRound(lovers, captain);
         isNight = false;
         return daytimeRoundManager;
     }
