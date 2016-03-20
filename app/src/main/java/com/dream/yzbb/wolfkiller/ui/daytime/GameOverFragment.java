@@ -1,15 +1,13 @@
 package com.dream.yzbb.wolfkiller.ui.daytime;
 
 
-import android.os.Bundle;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
+import android.util.Log;
 import android.widget.Toast;
 
-import com.dream.yzbb.wolfkiller.R;
+import com.dream.yzbb.wolfkiller.apputils.Constants;
+import com.dream.yzbb.wolfkiller.ui.SetupNewGameActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,14 +30,20 @@ public class GameOverFragment extends ActionDaytimeFragment {
     }
 
     @Override
-    protected void doPositiveAction() {
+    protected boolean doPositiveAction() {
         //重新开始一局游戏
         Toast.makeText(getActivity(), "重新开始一局游戏", Toast.LENGTH_SHORT).show();
+        Log.d(Constants.LOG_TAG, "重新开始一局游戏");
+        startNewGame();
+        return true;
     }
 
     @Override
-    protected void doNegativeAction() {
+    protected boolean doNegativeAction() {
         super.doNegativeAction();
+        Toast.makeText(getActivity(), "退出游戏", Toast.LENGTH_SHORT).show();
+        Log.d(Constants.LOG_TAG, "退出游戏");
+        return true;
     }
 
     @Override
@@ -50,5 +54,12 @@ public class GameOverFragment extends ActionDaytimeFragment {
     @Override
     protected int getActionTargetNumber() {
         return 0;
+    }
+
+    private void startNewGame()
+    {
+        Intent intent = new Intent(getActivity(), SetupNewGameActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
 }

@@ -3,6 +3,7 @@ package com.dream.yzbb.wolfkiller.ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.R;
 import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
+import com.dream.yzbb.wolfkiller.apputils.Constants;
 import com.dream.yzbb.wolfkiller.entity.NightRole;
 import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.entity.Witch;
@@ -116,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         NightRoundManager nightManager = Factory.get().getGameManager().getNightRoundManager();
         if (dayManager.hasNextEvent()) {
             DaytimeRoundManager.DaytimeEvent event = dayManager.nextDaytimeEvent();
+            Log.d(Constants.LOG_TAG, "Go to next event: " + event);
             switch (event) {
                 case PUBLISH_DEATH:
                     getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new PublishResultEventFragment()).commitAllowingStateLoss();
@@ -124,7 +127,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new ChangeCaptainFragment()).commitAllowingStateLoss();
                     break;
                 case GAME_STATUS:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new GameOverFragment()).commitAllowingStateLoss();
+                    if (Factory.get().getGameManager().isGameOver()) {
+                        getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new GameOverFragment()).commitAllowingStateLoss();
+                    } else {
+                        gotoNextDayEvent();
+                    }
                     break;
                 case SPEECH:
                     getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new SpeechFragment()).commitAllowingStateLoss();
@@ -137,7 +144,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     break;
             }
         } else {
-            finish();
+            //Go to night mode
+            applyStartFragment(true);
         }
     }
 
@@ -161,8 +169,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onStart(boolean isNight) {
         if (isNight) {
+            //night
             gotoNextRole();
         } else {
+            //daytime
             gotoNextDayEvent();
         }
     }
@@ -199,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void daytimeActionFinished() {
+        Log.i(Constants.LOG_TAG, "MainActivity [daytimeActionFinished] is called, go to next day event");
         gotoNextDayEvent();
     }
 }

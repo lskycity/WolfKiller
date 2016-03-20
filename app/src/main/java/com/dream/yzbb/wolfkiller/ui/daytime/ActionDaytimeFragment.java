@@ -20,7 +20,7 @@ import com.dream.yzbb.wolfkiller.entity.Player;
  */
 public abstract class ActionDaytimeFragment extends DaytimeFragment implements View.OnClickListener {
 
-    private DaytimeListener mDaytimeListener;
+    protected DaytimeListener mDaytimeListener;
 
     @Override
     public void onAttach(Context context) {
@@ -62,9 +62,10 @@ public abstract class ActionDaytimeFragment extends DaytimeFragment implements V
         return 1;
     }
 
-    protected abstract void doPositiveAction();
+    protected abstract boolean doPositiveAction();
 
-    protected void doNegativeAction() {
+    protected boolean doNegativeAction() {
+        return true;
     }
 
     @Override
@@ -87,12 +88,14 @@ public abstract class ActionDaytimeFragment extends DaytimeFragment implements V
         super.onClick(v);
         switch (v.getId()) {
             case R.id.positive_btn:
-                doPositiveAction();
-                mDaytimeListener.daytimeActionFinished();
+                if (doPositiveAction()) {
+                    mDaytimeListener.daytimeActionFinished();
+                }
                 break;
             case R.id.negative_btn:
-                doNegativeAction();
-                mDaytimeListener.daytimeActionFinished();
+                if (doNegativeAction()) {
+                    mDaytimeListener.daytimeActionFinished();
+                }
                 break;
         }
     }

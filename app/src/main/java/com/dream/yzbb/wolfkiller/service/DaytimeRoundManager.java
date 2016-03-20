@@ -2,6 +2,7 @@ package com.dream.yzbb.wolfkiller.service;
 
 import android.util.Log;
 
+import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.apputils.Constants;
 import com.dream.yzbb.wolfkiller.entity.DaytimeRoundRecord;
 import com.dream.yzbb.wolfkiller.entity.Lovers;
@@ -20,9 +21,8 @@ public class DaytimeRoundManager {
 
     private LinkedList<DaytimeRoundRecord> daytimeRoundRecords;
     private Lovers lovers;
-    //updated captain information
-    private Player captain;
     private LinkedList<DaytimeEvent> daytimeEvents;
+
 
     public enum DaytimeEvent {PUBLISH_DEATH, GAME_STATUS, CAPTAIN_DEATH, SPEECH, VOTE, LOVER_DEATH}
 
@@ -36,8 +36,8 @@ public class DaytimeRoundManager {
         dayRoundCount++;
         currentActionIndex = 0;
         this.lovers = lovers;
-        this.captain = captain;
         DaytimeRoundRecord daytimeRoundRecord = new DaytimeRoundRecord(dayRoundCount);
+        daytimeRoundRecord.setCaptain(captain);
         daytimeRoundRecords.add(daytimeRoundRecord);
         initDaytimeEvents();
         return daytimeRoundRecord;
@@ -54,6 +54,7 @@ public class DaytimeRoundManager {
     public DaytimeEvent nextDaytimeEvent() {
         DaytimeEvent event = daytimeEvents.removeFirst();
         //remove event according to daytimeRecord status
+        Log.i(Constants.LOG_TAG, "[nextDaytimeEvent] is called");
         if (event != DaytimeEvent.CAPTAIN_DEATH && event != DaytimeEvent.LOVER_DEATH) {
             return event;
         } else if (event == DaytimeEvent.LOVER_DEATH) {
@@ -81,7 +82,8 @@ public class DaytimeRoundManager {
     }
 
     private boolean isCaptainDead() {
-        return captain == null || captain.getStatus() == Player.Status.DEAD;
+        Player currentCaptain = latestDaytimeRoundRecord().getCaptain();
+        return currentCaptain == null || currentCaptain.getStatus() == Player.Status.DEAD;
     }
 
     public void endDaytimeRound() {

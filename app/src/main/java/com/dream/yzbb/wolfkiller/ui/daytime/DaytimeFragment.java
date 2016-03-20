@@ -28,6 +28,8 @@ public abstract class DaytimeFragment extends Fragment implements View.OnClickLi
         void onNextDaytimeActionTriggered();
     }
 
+    protected void init(){};
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -36,6 +38,12 @@ public abstract class DaytimeFragment extends Fragment implements View.OnClickLi
         } else {
             throw new RuntimeException("Attached activity should implement NextActionListeners");
         }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init();
     }
 
     protected void initView(View rootView) {
@@ -67,8 +75,13 @@ public abstract class DaytimeFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (mNextActionListener != null) {
-            mNextActionListener.onNextDaytimeActionTriggered();
+        switch (v.getId())
+        {
+            case R.id.next_event_btn:
+                if (mNextActionListener != null) {
+                    mNextActionListener.onNextDaytimeActionTriggered();
+                }
+                break;
         }
     }
 }

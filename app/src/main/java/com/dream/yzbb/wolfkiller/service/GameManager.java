@@ -147,4 +147,7 @@ public class GameManager {
         return true;
     }
 
+    public void setCaptain(Player captain) {
+        this.captain = captain;
+    }
 }

@@ -2,7 +2,7 @@
     <role class="Jupiter">
         <id>0</id>
         <name>丘比特</name>
-        <desc>好人</desc>
+        <desc>月老牵线搭桥</desc>
         <intro>连上两个好人</intro>
         <order>1</order>
         <min>0</min>
@@ -11,7 +11,7 @@
     <role class="WereWolf">
         <id>1</id>
         <name>狼人</name>
-        <desc>坏人</desc>
+        <desc>选择一个玩家并杀害</desc>
         <intro>杀光平民</intro>
         <order>3</order>
         <min>1</min>
