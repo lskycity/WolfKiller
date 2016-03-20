@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.R;
@@ -17,13 +16,21 @@ import com.dream.yzbb.wolfkiller.app.commonui.AboutUsActivity;
 import com.dream.yzbb.wolfkiller.entity.NightRole;
 import com.dream.yzbb.wolfkiller.entity.Player;
 import com.dream.yzbb.wolfkiller.entity.Witch;
+import com.dream.yzbb.wolfkiller.service.DaytimeRoundManager;
 import com.dream.yzbb.wolfkiller.service.GameManager;
+import com.dream.yzbb.wolfkiller.service.NightRoundManager;
+import com.dream.yzbb.wolfkiller.ui.daytime.ActionDaytimeFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.ChangeCaptainFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.DaytimeFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.GameOverFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.LoverDeathFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.PublishResultEventFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.SpeechFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.VoteFragment;
 import com.dream.yzbb.wolfkiller.utils.ViewUtils;
 
-import java.util.Arrays;
-
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener,
-        StartDayOrNightFragment.OnStartClickListener, NightEventFragment.NightEventListener {
+        StartDayOrNightFragment.OnStartClickListener, NightEventFragment.NightEventListener, DaytimeFragment.NextActionListener, ActionDaytimeFragment.DaytimeListener {
     private GridView mGridView;
     private TextView mDisplay;
 
@@ -77,34 +84,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     NightRole currentRole;
 
-//    @Override
-//    public void onClick(View v) {
-//        if (v.getId() == R.id.event_button) {
-//            mGameManager.getNightRoundManager().startNightRound();
-//            nightNow.setVisibility(View.GONE);
-//            positive.setVisibility(View.VISIBLE);
-//            negative.setVisibility(View.VISIBLE);
-//            currentRole = mGameManager.getNightRoundManager().nextRole();
-//            mDisplay.append(currentRole.getName() + "\n");
-//            mPlayerAdapter.setSelectedCount(currentRole.getActionTargetNumber());
-//
-//        } else if (v.getId() == R.id.positive) {
-//            Player[] players = mPlayerAdapter.getSelectPlayers();
-//            if (players.length == currentRole.getActionTargetNumber()) {
-//                mDisplay.append("select " + Arrays.toString(players) + "\n");
-//                mGameManager.getNightRoundManager().doAction(currentRole, players);
-//                gotoNextRole();
-//            } else {
-//                Toast.makeText(this, "need select player", Toast.LENGTH_LONG).show();
-//            }
-//
-//        } else if (v.getId() == R.id.negative) {
-//            gotoNextRole();
-//        } else if (v.getId() == R.id.start_daytime_button) {
-//            goToDaytimeActivity();
-//        }
-//    }
-
     private void goToDaytimeActivity() {
         startActivityForResult(new Intent(this, DaytimeActivity.class), 100);
     }
@@ -112,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 100) {
+        if (requestCode == 100) {
             mGameManager.endDayAndStartNight();
             applyStartFragment(true);
         }
@@ -132,8 +111,38 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
     }
 
+    private void gotoNextDayEvent() {
+        DaytimeRoundManager dayManager = Factory.get().getGameManager().getDaytimeRoundManager();
+        NightRoundManager nightManager = Factory.get().getGameManager().getNightRoundManager();
+        if (dayManager.hasNextEvent()) {
+            DaytimeRoundManager.DaytimeEvent event = dayManager.nextDaytimeEvent();
+            switch (event) {
+                case PUBLISH_DEATH:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new PublishResultEventFragment()).commitAllowingStateLoss();
+                    break;
+                case CAPTAIN_DEATH:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new ChangeCaptainFragment()).commitAllowingStateLoss();
+                    break;
+                case GAME_STATUS:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new GameOverFragment()).commitAllowingStateLoss();
+                    break;
+                case SPEECH:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new SpeechFragment()).commitAllowingStateLoss();
+                    break;
+                case VOTE:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new VoteFragment()).commitAllowingStateLoss();
+                    break;
+                case LOVER_DEATH:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new LoverDeathFragment()).commitAllowingStateLoss();
+                    break;
+            }
+        } else {
+            finish();
+        }
+    }
+
     private void gotoRoleFragment() {
-        if(currentRole instanceof Witch) {
+        if (currentRole instanceof Witch) {
             getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, WitchEventFragment.create(currentRole.getRoleID())).commitAllowingStateLoss();
         } else {
             getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, NightEventFragment.create(currentRole.getRoleID())).commitAllowingStateLoss();
@@ -151,10 +160,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onStart(boolean isNight) {
-        if(isNight) {
+        if (isNight) {
             gotoNextRole();
         } else {
-            goToDaytimeActivity();
+            gotoNextDayEvent();
         }
     }
 
@@ -171,5 +180,25 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void actionFinished() {
         gotoNextRole();
+    }
+
+    @Override
+    public void onNextDaytimeActionTriggered() {
+        gotoNextDayEvent();
+    }
+
+    @Override
+    public void onTargetPlayerDecided(int playerCount) {
+        mPlayerAdapter.setSelectedCount(playerCount);
+    }
+
+    @Override
+    public Player[] getSelectedPlayers() {
+        return mPlayerAdapter.getSelectPlayers();
+    }
+
+    @Override
+    public void daytimeActionFinished() {
+        gotoNextDayEvent();
     }
 }
