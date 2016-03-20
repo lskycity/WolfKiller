@@ -3,6 +3,7 @@ package com.dream.yzbb.wolfkiller.ui.daytime;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.dream.yzbb.wolfkiller.Factory;
 import com.dream.yzbb.wolfkiller.apputils.Constants;
 import com.dream.yzbb.wolfkiller.entity.Player;
 
@@ -19,16 +20,14 @@ public class VoteFragment extends ActionDaytimeFragment {
     @Override
     protected boolean doPositiveAction() {
         //kill the selected player
-        if(mDaytimeListener.getSelectedPlayers().length!=getActionTargetNumber())
-        {
+        if (mDaytimeListener.getSelectedPlayers().length != getActionTargetNumber()) {
             Toast.makeText(getActivity(), "请选择需要处决的人!!!", Toast.LENGTH_SHORT).show();
             Log.d(Constants.LOG_TAG, "未选择要处决的人,选中的人数为" + mDaytimeListener.getSelectedPlayers().length + "个");
             return false;
-        }
-        else
-        {
+        } else {
             // kill person
             mDaytimeListener.getSelectedPlayers()[0].setStatus(Player.Status.DEAD);
+            Factory.get().getGameManager().getDaytimeRoundManager().latestDaytimeRoundRecord().setVotedPerson(mDaytimeListener.getSelectedPlayers()[0]);
             Log.d(Constants.LOG_TAG, "投死的是" + mDaytimeListener.getSelectedPlayers()[0].getPlayID() + "号");
             return true;
         }

@@ -214,6 +214,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void daytimeActionFinished() {
         Log.i(Constants.LOG_TAG, "MainActivity [daytimeActionFinished] is called, go to next day event");
         gotoNextDayEvent();
+        mPlayerAdapter.notifyDataSetChanged();
     }
 
     private void updateCaptainInfo() {

@@ -78,6 +78,7 @@ public class DaytimeRoundManager {
 
     private boolean isLoverDead() {
         DaytimeRoundRecord record = latestDaytimeRoundRecord();
+        Log.i(Constants.LOG_TAG,"[isLoverDead], voted person is No."+record.getVotedPerson()+"");
         return lovers.isLover(record.getVotedPerson());
     }
 
