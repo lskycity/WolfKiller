@@ -26,7 +26,7 @@ import com.dream.yzbb.wolfkiller.ui.daytime.ChangeCaptainFragment;
 import com.dream.yzbb.wolfkiller.ui.daytime.DaytimeFragment;
 import com.dream.yzbb.wolfkiller.ui.daytime.GameOverFragment;
 import com.dream.yzbb.wolfkiller.ui.daytime.LoverDeathFragment;
-import com.dream.yzbb.wolfkiller.ui.daytime.PublishResultEventFragment;
+import com.dream.yzbb.wolfkiller.ui.daytime.PublishResultFragment;
 import com.dream.yzbb.wolfkiller.ui.daytime.SpeechFragment;
 import com.dream.yzbb.wolfkiller.ui.daytime.VoteFragment;
 import com.dream.yzbb.wolfkiller.utils.ViewUtils;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         StartDayOrNightFragment.OnStartClickListener, NightEventFragment.NightEventListener, DaytimeFragment.NextActionListener, ActionDaytimeFragment.DaytimeListener {
     private GridView mGridView;
     private TextView mDisplay;
+    private TextView mCaptainInfo;
 
     private GameManager mGameManager;
     private PlayerAdapter mPlayerAdapter;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setContentView(R.layout.activity_main);
         mGridView = (GridView) findViewById(R.id.all_player);
         mDisplay = (TextView) findViewById(R.id.event_panel);
+        mCaptainInfo = (TextView) findViewById(R.id.captain_info);
 
         mGameManager = Factory.get().getGameManager();
         mGridView.setAdapter(mPlayerAdapter = new PlayerAdapter(this, mGameManager.getAllPlayers()));
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Log.d(Constants.LOG_TAG, "Go to next event: " + event);
             switch (event) {
                 case PUBLISH_DEATH:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new PublishResultEventFragment()).commitAllowingStateLoss();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new PublishResultFragment()).commitAllowingStateLoss();
                     break;
                 case CAPTAIN_DEATH:
                     getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new ChangeCaptainFragment()).commitAllowingStateLoss();
@@ -143,6 +145,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                     getSupportFragmentManager().beginTransaction().replace(R.id.action_panel, new LoverDeathFragment()).commitAllowingStateLoss();
                     break;
             }
+            updateCaptainInfo();
         } else {
             //Go to night mode
             applyStartFragment(true);
@@ -211,5 +214,14 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public void daytimeActionFinished() {
         Log.i(Constants.LOG_TAG, "MainActivity [daytimeActionFinished] is called, go to next day event");
         gotoNextDayEvent();
+    }
+
+    private void updateCaptainInfo() {
+        GameManager gameManager = Factory.get().getGameManager();
+        if (gameManager.getCaptain() != null) {
+            mCaptainInfo.setText("当前警长是" + Factory.get().getGameManager().getCaptain().getPlayID() + "号");
+        } else {
+            mCaptainInfo.setText("当前无警长");
+        }
     }
 }

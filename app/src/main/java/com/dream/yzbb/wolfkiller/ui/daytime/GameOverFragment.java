@@ -43,6 +43,7 @@ public class GameOverFragment extends ActionDaytimeFragment {
         super.doNegativeAction();
         Toast.makeText(getActivity(), "退出游戏", Toast.LENGTH_SHORT).show();
         Log.d(Constants.LOG_TAG, "退出游戏");
+        getActivity().finish();
         return true;
     }
 

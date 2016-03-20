@@ -19,26 +19,30 @@ import java.util.List;
 /**
  * Created by kevinbest on 16/3/17.
  */
-public class PublishResultEventFragment extends DaytimeFragment {
+public class PublishResultFragment extends DaytimeFragment {
     @Override
     protected String getActionDescription() {
 
         NightRoundManager nightManager = Factory.get().getGameManager().getNightRoundManager();
-        String nightResult = getNightResult(nightManager.latestNightRoundRecord());
-        return nightResult == null ? "昨天晚上没有人死亡" : nightResult;
+        return getNightResult(nightManager.latestNightRoundRecord());
     }
 
     private String getNightResult(NightRoundRecord record) {
         if (record != null) {
             List<Player> deadPerson = record.deadPlayers(record.getLovers());
             StringBuilder builder = new StringBuilder();
-            builder.append("昨天晚上");
-            for (int i = 0; i < deadPerson.size(); i++) {
-                builder.append(deadPerson.get(i).getPlayID() + " ");
+            if (deadPerson.size() == 0) {
+                builder.append("昨晚是个平安夜");
+            } else {
+                builder.append("昨天晚上");
+                for (int i = 0; i < deadPerson.size(); i++) {
+                    builder.append(deadPerson.get(i).getPlayID() + "号, ");
+                }
+                builder.append("死了");
             }
-            builder.append("死了");
             return builder.toString();
+        } else {
+            throw new RuntimeException("NightRoundRecord cannot be null when publishing Result.");
         }
-        return null;
     }
 }
